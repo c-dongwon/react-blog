@@ -2,6 +2,7 @@ const express = require('express');
 const PORT = process.env.PORT || 4000;
 const app = express();
 const mysql = require("mysql");
+app.use(express.json());
 
 const db = mysql.createPool({
     host: "localhost",
@@ -25,6 +26,15 @@ const db = mysql.createPool({
         }
     });
 });
+
+app.post("/api/signup", (req, res) => {
+  const param = [req.body.name, req.body.email, req.body.password]
+  db.query('INSERT INTO user( name, email, password) VALUES(?,?,?)', param, (err, row) => {
+    if(err) console.log(err)
+  })
+  res.end()
+})
+
 
   app.listen(PORT, () => {
     console.log(`Connect at http://localhost: ${PORT}`);
