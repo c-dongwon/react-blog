@@ -11,6 +11,9 @@ const db = mysql.createPool({
     database: "dwbase",
   });
 
+const bcrypt = require("bcrypt")
+const saltRounds = 10
+
   app.get("/", (req, res) => {
     res.send('success!')
   });
@@ -29,12 +32,34 @@ const db = mysql.createPool({
 
 app.post("/api/signup", (req, res) => {
   const param = [req.body.name, req.body.email, req.body.password]
-  db.query('INSERT INTO user( name, email, password) VALUES(?,?,?)', param, (err, row) => {
-    if(err) console.log(err)
+  bcrypt.hash(param[2], saltRounds, (error, hash) => {
+    param[2] = hash
+    db.query('INSERT INTO user( name, email, password) VALUES(?,?,?)', param, (err, row) => {
+      if(err) console.log(err)
+    })
   })
   res.end()
 })
 
+app.post("/api/login", (req, res) => {
+  const param = [req.body.email, req.body.password]
+  db.query('SELECT * FROM user WHERE email=?',param[0],(err, row) =>{
+    if(err) console.log(err)
+
+    if(row.length > 0){
+      bcrypt.compare(param[1],row[0].password,(error, result) => {
+        if(result){
+          console.log('성공!')
+        }else{
+          console.log('실패!')
+        }
+      })
+    }else{
+      console.log("id없음!!")
+    }
+  })
+  res.end()
+})
 
   app.listen(PORT, () => {
     console.log(`Connect at http://localhost: ${PORT}`);

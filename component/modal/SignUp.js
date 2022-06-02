@@ -10,7 +10,7 @@ const SignUp = ({showSignUp, stopPropagation}) => {
     const [email, onChangeEmail, setEmail] = useInput();
     const [password, onChangePassword, setPassword] = useInput();
 
-    const onClickLogin = useCallback((e) => {
+    const onSubmitSignUp = useCallback((e) => {
         e.preventDefault();
         axios.post("/api/signup",{
             name:name,
@@ -23,7 +23,7 @@ const SignUp = ({showSignUp, stopPropagation}) => {
 
     return (
         <SignUpForm className={showSignUp ? "active" : ""} onClick={stopPropagation}>
-            <form onSubmit={onClickLogin}>
+            <form onSubmit={onSubmitSignUp}>
             <FloatingLabel
                     label="Name"
                     className="login-input">

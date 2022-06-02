@@ -1,10 +1,14 @@
 import React, {useCallback, useState} from 'react';
+import axios from "axios";
 import Header from '../component/header';
 import useLocalStorage from '../hook/useLocalStorage';
 import  GlobalStyles from "./GlobalStyles"
 import { Section } from './style';
 import Login from '../component/modal/Login';
 import SignUp from '../component/modal/SignUp';
+
+axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.withCredentials = true;
 
 const index = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
