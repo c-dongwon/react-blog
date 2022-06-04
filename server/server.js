@@ -49,13 +49,13 @@ app.post("/api/login", (req, res) => {
     if(row.length > 0){
       bcrypt.compare(param[1],row[0].password,(error, result) => {
         if(result){
-          console.log('성공!')
+          return res.send(result)
         }else{
-          console.log('실패!')
+          return res.status(404).send("비밀번호가 틀렸습니다!")
         }
       })
     }else{
-      console.log("id없음!!")
+      return res.status(404).send("id가 존재하지 않습니다!")
     }
   })
   res.end()
