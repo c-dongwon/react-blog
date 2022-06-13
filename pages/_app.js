@@ -1,4 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import wrapper from "../lib/store/configureStore";
+import PropTypes from "prop-types";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -14,7 +16,7 @@ const theme = {
   },
 }
 
-export default function App({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
   return (
     <>
       <GlobalStyle />
@@ -24,3 +26,9 @@ export default function App({ Component, pageProps }) {
     </>
   )
 }
+
+App.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+};
+
+export default wrapper.withRedux(App);
