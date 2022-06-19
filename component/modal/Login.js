@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import { LayerForm, LoginBtn, SignUpBtn } from './style';
+import { LayerForm, LoginBtn, SignUpBtn, UserForm, LogOutBtn } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import useInput from '../../hook/useInput';
 import axios from 'axios';
 
-const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp}) => {
+const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, onClickUserInfo, showUserInfo}) => {
     const [email, onChangeEmail ,setEmail] = useInput();
     const [password, onChangePassword ,setPassword] = useInput();
     const [loginData, setLoginData] = useState(false);
@@ -39,7 +39,14 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp})
 
     return (
         <LayerForm className={showLogin ? "active" : ""} onClick={stopPropagation}> 
-            {loginData ? <span>반갑습니다! {userData.name} 님</span> : 
+            {!loginData ? 
+            <UserForm>
+            <span>반가워요 동원님!</span> 
+            <LoginBtn onClick={onClickSignUp} type="button">글쓰기</LoginBtn>
+            <SignUpBtn onClick={onClickUserInfo} type="button">{showUserInfo ? "회원정보 변경 취소" : "회원정보 변경"}</SignUpBtn>
+            <LogOutBtn onClick={onClickSignUp} type="button">로그아웃</LogOutBtn>
+            </UserForm>
+            : 
             <form onSubmit={onSubmitLogin}>
                 <FloatingLabel
                     controlId="floatingInput"

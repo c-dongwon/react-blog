@@ -27,12 +27,12 @@ const SignUp = ({showSignUp, stopPropagation}) => {
             <FloatingLabel
                     label="Name"
                     className="login-input">
-                    <Form.Control type="text" value={name} onChange={onChangeName}/>
+                    <Form.Control type="text" value={name} onChange={onChangeName} placeholder="Name"/>
                 </FloatingLabel>
                 <FloatingLabel
                     label="ID"
                     className="login-input">
-                    <Form.Control type="text" value={email} onChange={onChangeEmail}/>
+                    <Form.Control type="text" value={email} onChange={onChangeEmail} placeholder="ID"/>
                 </FloatingLabel>
                 <FloatingLabel label="Password" className="login-input">
                     <Form.Control type="password" placeholder="Password" value={password} onChange={onChangePassword}/>

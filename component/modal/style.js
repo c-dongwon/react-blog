@@ -88,3 +88,21 @@ export const SignUpBtn = styled.button`
     width: 100%;
     margin-top: 15px;
 `
+export const UserForm = styled.div`
+    padding: 20px 0;
+    span{
+        display: inline-block;
+        padding:0px 0 10px;
+    }
+`
+export const LogOutBtn = styled.button`
+  height:30px;
+    background-color: #f39191;
+    color:#fff;
+    border-radius: 5px;
+    border: 0;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+`

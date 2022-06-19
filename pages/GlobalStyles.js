@@ -22,6 +22,10 @@ const GlobalStyles = createGlobalStyle`
     body{
         font-family: "Pretendard";
     }
+    a{
+        text-decoration: none;
+        color:#333;
+    }
 `;
 
 export default GlobalStyles;
