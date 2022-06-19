@@ -8,10 +8,7 @@ import { BsFillBrightnessHighFill, BsMoonFill, BsEmojiSunglasses } from "react-i
 const Header = ({darkMod, isDarkMode, onClickLogin}) => {
     const [data, setData] = useState([]);
 
-        useEffect(() => {
-            axios.get("/api/list")
-            .then(res => setData(res.data))
-        },[])
+        
 
     return (
         <HeaderWrap className={isDarkMode ? "dark" : ""}>        

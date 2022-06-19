@@ -1,14 +1,11 @@
-import React, {useCallback, useState} from 'react';
-import { useDispatch } from 'react-redux';
+import React, {useCallback, useEffect, useState} from 'react';
 import { LayerForm, LoginBtn, SignUpBtn } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import useInput from '../../hook/useInput';
 import axios from 'axios';
-import { loginUser } from '../../lib/store/action/user_action';
 
-const Login = ({showLogin, stopPropagation, onClickSignUp, showSignUp}) => {
-    const dispatch = useDispatch();
+const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp}) => {
     const [email, onChangeEmail ,setEmail] = useInput();
     const [password, onChangePassword ,setPassword] = useInput();
     const [loginData, setLoginData] = useState(false);
@@ -23,18 +20,22 @@ const Login = ({showLogin, stopPropagation, onClickSignUp, showSignUp}) => {
             password:password
         }
 
-        dispatch(loginUser(body))
-
-        // axios.post("/api/login",body)
-        // .then(res => {
-        //     const { accessToken } = res.data;
-        //     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        //     setUserData(res.data)
-        //     setLoginData(true)
-        //     console.log(res)
-        // })
-        // .catch(error => setError(error.response.data))
+        axios.post("/api/login",body)
+        .then(res => {
+            const { accessToken } = res.data;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+            withCredentials: true,
+            setUserData(res.data)
+            setLoginData(true)
+        })
+        .catch(error => setError(error.response.data))
     },[email, password])
+
+   useEffect(() => {
+    if(JSON.stringify(cookies) !== "{}" ){
+        setLoginData(true)
+    }
+   },[])
 
     return (
         <LayerForm className={showLogin ? "active" : ""} onClick={stopPropagation}> 

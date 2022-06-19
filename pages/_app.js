@@ -1,6 +1,5 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import wrapper from "../lib/store/configureStore";
-import PropTypes from "prop-types";
+import { CookiesProvider } from 'react-cookie';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,16 +18,15 @@ const theme = {
 const App = ({ Component, pageProps }) => {
   return (
     <>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+    <CookiesProvider>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </CookiesProvider>
     </>
   )
 }
 
-App.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-};
 
-export default wrapper.withRedux(App);
+export default App;
