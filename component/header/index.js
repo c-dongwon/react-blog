@@ -1,8 +1,7 @@
 import React,{useState, useEffect, useCallback} from 'react';
-import axios from 'axios';
 import { HeaderBar, LeftMenu, HeaderWrap, DarkBtn, UserBtn, MenuList, SwitchBtn, FlexLi } from './style';
 import Link from 'next/link'
-import { BsFillBrightnessHighFill, BsMoonFill, BsEmojiSunglasses, BsChevronDown, BsChevronUp, BsChevronRight, BsSearch } from "react-icons/bs";
+import { BsChevronDown, BsChevronUp, BsChevronRight, BsSearch } from "react-icons/bs";
 
 const Header = ({darkMod, isDarkMode, onClickLogin}) => {
     const [activeMenu, setActiveMenu] = useState(0);
@@ -16,7 +15,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin}) => {
     },[activeMenu])
  
     return (
-        <HeaderWrap className={isDarkMode ? "dark" : ""}>        
+        <HeaderWrap>        
             <HeaderBar>
                 <div>
                     <form>
@@ -33,8 +32,8 @@ const Header = ({darkMod, isDarkMode, onClickLogin}) => {
                 <h1>MENU</h1>
                 <MenuList>
                     <li>
-                        <button type='button' onClick={() => toggleBtn(1)} className={1 === activeMenu && "active"}>React{1 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
-                        <ul className={1 === activeMenu && "active"}>
+                        <button type='button' onClick={() => toggleBtn(1)} className={1 === activeMenu ? "active" : ""}>React{1 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
+                        <ul className={1 === activeMenu ? "active" : ""}>
                             <li>
                                 <Link href="#">
                                     <a>-useState</a>
@@ -58,8 +57,8 @@ const Header = ({darkMod, isDarkMode, onClickLogin}) => {
                         </ul>
                     </li>    
                     <li>
-                    <button type='button' onClick={() => toggleBtn(2)}  className={2 === activeMenu && "active"}>JavaScript{2 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
-                        <ul className={2 === activeMenu && "active"}>
+                    <button type='button' onClick={() => toggleBtn(2)}  className={2 === activeMenu ? "active" : ""}>JavaScript{2 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
+                        <ul className={2 === activeMenu ? "active" : ""}>
                             <li>
                                 <Link href="#">
                                     <a>-Map</a>

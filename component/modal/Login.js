@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useInput from '../../hook/useInput';
 import axios from 'axios';
 
-const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, onClickUserInfo, showUserInfo}) => {
+const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, onClickUserInfo, showUserInfo, removeCookie}) => {
     const [email, onChangeEmail ,setEmail] = useInput();
     const [password, onChangePassword ,setPassword] = useInput();
     const [loginData, setLoginData] = useState(false);
@@ -31,30 +31,37 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
         .catch(error => setError(error.response.data))
     },[email, password])
 
+    const onSubmitLogout = useCallback(() => {
+        axios.get("/api/logout")
+        .then(res => {
+            removeCookie("x_auth")
+            setLoginData(false)
+        })
+    },[]);
+
    useEffect(() => {
-    if(JSON.stringify(cookies) !== "{}" ){
+    if(JSON.stringify(cookies) !== "{}" && cookies.x_auth !== "undefined"){
         setLoginData(true)
     }
    },[])
-
+   
     return (
         <LayerForm className={showLogin ? "active" : ""} onClick={stopPropagation}> 
-            {!loginData ? 
+            {loginData ? 
             <UserForm>
             <span>반가워요 동원님!</span> 
             <LoginBtn onClick={onClickSignUp} type="button">글쓰기</LoginBtn>
             <SignUpBtn onClick={onClickUserInfo} type="button">{showUserInfo ? "회원정보 변경 취소" : "회원정보 변경"}</SignUpBtn>
-            <LogOutBtn onClick={onClickSignUp} type="button">로그아웃</LogOutBtn>
+            <LogOutBtn onClick={onSubmitLogout} type="button">로그아웃</LogOutBtn>
             </UserForm>
             : 
             <form onSubmit={onSubmitLogin}>
                 <FloatingLabel
-                    controlId="floatingInput"
                     label="ID"
                     className="login-input">
                     <Form.Control type="text" placeholder="name@example.com" value={email} onChange={onChangeEmail}/>
                 </FloatingLabel>
-                <FloatingLabel controlId="floatingPassword" label="Password" className="login-input">
+                <FloatingLabel label="Password" className="login-input">
                     <Form.Control type="password" placeholder="Password"  value={password} onChange={onChangePassword}/>
                 </FloatingLabel>
                 <LoginBtn type='submit'>

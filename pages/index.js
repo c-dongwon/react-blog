@@ -63,7 +63,7 @@ const index = () => {
             <Login hasCookie={hasCookie} cookies={cookies} 
             showLogin={showLogin} stopPropagation={stopPropagation} 
             onClickSignUp={onClickSignUp} onClickUserInfo={onClickUserInfo} 
-            showUserInfo={showUserInfo} showSignUp={showSignUp} setHasCookie={setHasCookie}/>
+            showUserInfo={showUserInfo} showSignUp={showSignUp} setHasCookie={setHasCookie} removeCookie={removeCookie}/>
 
             <SignUp showSignUp={showSignUp} stopPropagation={stopPropagation}/>
             <UserInfo showUserInfo={showUserInfo} stopPropagation={stopPropagation}/>

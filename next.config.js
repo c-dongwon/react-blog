@@ -12,6 +12,10 @@ module.exports = {
         {
           source: '/api/login',//api request path
           destination: 'http://localhost:4000/api/login',//목적 path
+        },
+        {
+          source: '/api/logout',//api request path
+          destination: 'http://localhost:4000/api/logout',//목적 path
         }
       ]
     },
