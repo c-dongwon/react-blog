@@ -16,7 +16,15 @@ module.exports = {
         {
           source: '/api/logout',//api request path
           destination: 'http://localhost:4000/api/logout',//목적 path
-        }
+        },
+        {
+          source: '/api/user/auth',//api request path
+          destination: 'http://localhost:4000/api/user/auth',//목적 path
+        },
+        {
+          source: '/api/modfiy',//api request path
+          destination: 'http://localhost:4000/api/modfiy',//목적 path
+        },
       ]
     },
 }

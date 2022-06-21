@@ -9,7 +9,7 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
     const [email, onChangeEmail ,setEmail] = useInput();
     const [password, onChangePassword ,setPassword] = useInput();
     const [loginData, setLoginData] = useState(false);
-    const [userData,  setUserData] = useState('');
+    const [userData,  setUserData] = useState();
     const [error, setError] = useState('');
 
     const onSubmitLogin = useCallback((e) => {
@@ -25,11 +25,15 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
             const { accessToken } = res.data;
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             withCredentials: true,
-            setUserData(res.data)
             setLoginData(true)
         })
         .catch(error => setError(error.response.data))
     },[email, password])
+
+    useEffect(() => {
+        axios.get("/api/user/auth")
+        .then(res => {setUserData(res.data)})
+    },[loginData])
 
     const onSubmitLogout = useCallback(() => {
         axios.get("/api/logout")
@@ -44,12 +48,11 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
         setLoginData(true)
     }
    },[])
-   
     return (
         <LayerForm className={showLogin ? "active" : ""} onClick={stopPropagation}> 
             {loginData ? 
             <UserForm>
-            <span>반가워요 동원님!</span> 
+            <span>반가워요 {userData?.name}님!</span> 
             <LoginBtn onClick={onClickSignUp} type="button">글쓰기</LoginBtn>
             <SignUpBtn onClick={onClickUserInfo} type="button">{showUserInfo ? "회원정보 변경 취소" : "회원정보 변경"}</SignUpBtn>
             <LogOutBtn onClick={onSubmitLogout} type="button">로그아웃</LogOutBtn>

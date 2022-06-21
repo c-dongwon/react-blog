@@ -30,6 +30,7 @@ app.post('/api/signup', (req, res) =>{
     });
 })
 
+
 app.post('/api/login', (req, res) => {
     //요청된 이메일을 데이터베이스에서 있는지 찾는다.
     User.findOne({email: req.body.email},(err, user) => {
@@ -52,7 +53,7 @@ app.post('/api/login', (req, res) => {
                 // 토큰을 저장.
                 res.cookie("x_auth", user.token)
                   .status(200)
-                  .json({ loginSuccess: true, userId: user._id })
+                  .json({ loginSuccess: true, userId: user._id, userName:user.name })
               })
         })
     })
@@ -82,6 +83,26 @@ app.get('/api/logout', auth, (req, res) =>{
         })
 })
 
+  app.get("/api/modfiy", (req, res) => {
+    User.findOne(
+      {
+        name: "나얌",
+      },
+      (err, item) => {
+        if (err) throw err;
+        item.updateOne(
+          {
+            name: "111",
+          },
+          (err) => {
+            if (err) throw err;
+            console.log("Update Success!");
+            res.send("Update Success!");
+          }
+        );
+      }
+    );
+  });
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

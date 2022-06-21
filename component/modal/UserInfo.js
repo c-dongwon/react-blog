@@ -12,11 +12,8 @@ const UserInfo = ({showUserInfo, stopPropagation}) => {
 
     const onSubmitSignUp = useCallback((e) => {
         e.preventDefault();
-        axios.post("/api/",{
-          
-        })
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
+       axios.get("/api/modfiy")
+       .then(res => console.log(res))
     },[name, email, password])
 
     return (
