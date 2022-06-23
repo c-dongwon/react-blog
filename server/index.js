@@ -83,16 +83,17 @@ app.get('/api/logout', auth, (req, res) =>{
         })
 })
 
-  app.get("/api/modfiy", (req, res) => {
+  app.post("/api/modfiy", (req, res) => {
     User.findOne(
       {
-        name: "나얌",
+        email: req.body.email
       },
       (err, item) => {
         if (err) throw err;
         item.updateOne(
           {
-            name: "111",
+            name: req.body.name,
+            image:req.body.image
           },
           (err) => {
             if (err) throw err;

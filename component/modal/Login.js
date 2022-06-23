@@ -5,11 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useInput from '../../hook/useInput';
 import axios from 'axios';
 
-const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, onClickUserInfo, showUserInfo, removeCookie}) => {
+const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, onClickUserInfo, showUserInfo, removeCookie, userData,  setUserData}) => {
     const [email, onChangeEmail ,setEmail] = useInput();
     const [password, onChangePassword ,setPassword] = useInput();
     const [loginData, setLoginData] = useState(false);
-    const [userData,  setUserData] = useState();
     const [error, setError] = useState('');
 
     const onSubmitLogin = useCallback((e) => {
@@ -30,10 +29,7 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
         .catch(error => setError(error.response.data))
     },[email, password])
 
-    useEffect(() => {
-        axios.get("/api/user/auth")
-        .then(res => {setUserData(res.data)})
-    },[loginData])
+
 
     const onSubmitLogout = useCallback(() => {
         axios.get("/api/logout")

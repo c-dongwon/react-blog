@@ -18,6 +18,7 @@ const index = () => {
     const [showUserInfo, setShowUserInfo] = useState(false);
     const [ cookies, removeCookie ] = useCookies([ 'user' ]);  
     const [ hasCookie, setHasCookie ] = useState(false);
+    const [userData,  setUserData] = useState();
 
     useEffect(() => {    
         if (cookies.user && cookies.user !== 'undefined') { 
@@ -55,6 +56,8 @@ const index = () => {
         e.stopPropagation();
       }, []);
       
+     
+    
     return (
         <Section className={isDarkMode ? "dark" : ""} onClick={onCloseModal}>
             <GlobalStyles/>
@@ -63,10 +66,12 @@ const index = () => {
             <Login hasCookie={hasCookie} cookies={cookies} 
             showLogin={showLogin} stopPropagation={stopPropagation} 
             onClickSignUp={onClickSignUp} onClickUserInfo={onClickUserInfo} 
-            showUserInfo={showUserInfo} showSignUp={showSignUp} setHasCookie={setHasCookie} removeCookie={removeCookie}/>
+            showUserInfo={showUserInfo} showSignUp={showSignUp} 
+            setHasCookie={setHasCookie} removeCookie={removeCookie}
+            userData={userData} setUserData={setUserData}/>
 
             <SignUp showSignUp={showSignUp} stopPropagation={stopPropagation}/>
-            <UserInfo showUserInfo={showUserInfo} stopPropagation={stopPropagation}/>
+            <UserInfo showUserInfo={showUserInfo} stopPropagation={stopPropagation} userData={userData} setUserData={setUserData}/>
         </Section>
     );
 };
