@@ -44,16 +44,10 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
    },[]);
 
     return (
-        <LayerForm className={showLogin ? "active" : ""} onClick={stopPropagation}> 
-            {loginData ? 
-            <UserForm>
-            <span>반가워요 {userData?.name}님!</span> 
-            <LoginBtn onClick={onClickSignUp} type="button">글쓰기</LoginBtn>
-            <SignUpBtn onClick={onClickUserInfo} type="button">{showUserInfo ? "회원정보 변경 취소" : "회원정보 변경"}</SignUpBtn>
-            <LogOutBtn onClick={onSubmitLogout} type="button">로그아웃</LogOutBtn>
-            </UserForm>
-            : 
+        <LayerForm onClick={stopPropagation}> 
             <form onSubmit={onSubmitLogin}>
+                <h2>로그인</h2>
+                <button type='button' className='signUpBtn'>신규 사용자이신가요? <span>계정만들기</span></button>
                 <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" placeholder="name@example.com" id="id" value={email} onChange={onChangeEmail}/>
@@ -64,14 +58,9 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
                     <label htmlFor="password">Password</label>
                 </FloatingLabel>
                 <LoginBtn type='submit'>
-                    {
-                        error ? <span style={{color:"red"}}>{error}</span> : "Login"
-                    }
-                    
+                    로그인
                 </LoginBtn>
-                <SignUpBtn onClick={onClickSignUp} type="button">{showSignUp ? "Close" : "Sign Up"}</SignUpBtn>
             </form> 
-}
         </LayerForm>
     );
 };

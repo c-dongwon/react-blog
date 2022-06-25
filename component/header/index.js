@@ -1,7 +1,9 @@
 import React,{useState, useEffect, useCallback} from 'react';
-import { HeaderBar, LeftMenu, HeaderWrap, DarkBtn, UserBtn, MenuList, SwitchBtn, FlexLi } from './style';
+import { HeaderBar, LeftMenu, HeaderWrap, MyInfo, MenuList, SwitchBtn, FlexLi, SearchWrap } from './style';
 import Link from 'next/link'
 import { BsChevronDown, BsChevronUp, BsChevronRight, BsSearch } from "react-icons/bs";
+import LoginAfter from './incloud/LoginAfter';
+import LoginBefore from './incloud/LoginBefore';
 
 const Header = ({darkMod, isDarkMode, onClickLogin}) => {
     const [activeMenu, setActiveMenu] = useState(0);
@@ -16,20 +18,14 @@ const Header = ({darkMod, isDarkMode, onClickLogin}) => {
  
     return (
         <HeaderWrap>        
-            <HeaderBar>
-                <div>
-                    <form>
-                        <button type="submit"><BsSearch/></button>
-                        <input type="text" placeholder='Search'/>
-                    </form>
-                    
-                </div>
-                <UserBtn onClick={onClickLogin}>
-                    <img src="img/sample.png" alt="" />
-                </UserBtn>
-            </HeaderBar>
             <LeftMenu>
-                <h1>MENU</h1>
+                <h1>블로그</h1>
+                <SearchWrap>
+                    <input type="text" placeholder='검색'/>
+                    <button><BsSearch/></button>
+                </SearchWrap>
+                <LoginBefore onClickLogin={onClickLogin}/>
+                 {/* <LoginAfter/> */}
                 <MenuList>
                     <li>
                         <button type='button' onClick={() => toggleBtn(1)} className={1 === activeMenu ? "active" : ""}>React{1 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
@@ -101,7 +97,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin}) => {
                         </Link>
                     </li>    
                     <FlexLi>
-                        <h3>Dark Mode</h3>
+                        <h3>{isDarkMode ? "라이트 모드" : "다크 모드"}</h3>
                          <SwitchBtn>
                             <input type="checkbox" id="switch" onClick={darkMod}/>
                             <label htmlFor="switch">

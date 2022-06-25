@@ -1,9 +1,87 @@
 import styled, { isStyledComponent } from "styled-components";
 
 export const HeaderWrap = styled.div`
-  
 `
+export const MyInfo = styled.button`
+    width: 100%;
+    height: 80px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0 5px 0px #0000001a;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:hover{
+        h3{
+            color:#1276E1;
+        }
+    }
+    h3{
+        font-weight: 500;
+        font-size: 16px;
+    }
+    p{
+        font-size: 13px;
+        margin-top: 5px;
+        font-weight: 300;
+    }
+    .imgWrap{
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background-color: #ffd2d2;
+        margin-right: 10px;
+        img{
+            max-width: 100%;
+        }
+    }
+    .infoWrap{
+        text-align: left;
+        width: 65%;
+    }
+    svg{
+        color:#C4C4C6
+    }
 
+`
+export const SearchWrap = styled.div`
+    position: relative;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 20px;
+       input{
+            width: 100%;
+            height: 30px;
+            background-color: #e1e1e1;
+            border-radius: 6px;
+            border: 0;
+            padding-left: 40px;
+            font-size:17px;
+            color:#979797;
+            font-weight: 300;
+            &::placeholder{
+                color:#979797;
+                font-size:17px;
+                font-weight: 300;
+            }
+        }
+    button{
+        position: absolute;
+        left: 0;
+        height:30px;
+        top: 0%;
+        border:0;
+        background-color: transparent;
+        svg{
+            color:#0000005C;
+            width: 14px;
+            margin-left: 10px;
+        }
+    }
+`
 export const HeaderBar = styled.header`
     position: fixed;
     top: 0;
@@ -66,7 +144,7 @@ export const LeftMenu = styled.nav`
     height: 100%;
     width:380px;
     border-right: 1px solid #ddd;
-    background-color: #F5F5F5;
+    background-color: #F9F9F9;
     padding: 0 40px;
     h1{
         text-align: left;
@@ -81,7 +159,7 @@ export const MenuList = styled.ul`
     max-height: 490px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: -1px 3px 8px #0000001A;
+    box-shadow: 0px 0 5px 0px #0000001A;
     padding: 0 20px;
     margin-bottom: 30px;
     & > li{
@@ -177,8 +255,8 @@ export const SwitchBtn = styled.div`
     border-radius: 20px;
     transition: 0.2s;
     box-sizing: border-box;
-    background: #666;
-    border: 2px solid #666;
+    background: #e1e1e1;
+    border: 2px solid #e1e1e1;
     }
     span {
     position: absolute;
