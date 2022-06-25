@@ -104,7 +104,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin}) => {
                         <h3>Dark Mode</h3>
                          <SwitchBtn>
                             <input type="checkbox" id="switch" onClick={darkMod}/>
-                            <label for="switch">
+                            <label htmlFor="switch">
                                 <span></span>
                             </label>
                         </SwitchBtn>

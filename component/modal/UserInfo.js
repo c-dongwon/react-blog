@@ -20,24 +20,22 @@ const UserInfo = ({showUserInfo, stopPropagation, userData, setUserData}) => {
        .then(res => setMod(prev => !prev))
     },[name, email, password])
 
-    useEffect(() => {
-        axios.get("/api/user/auth")
-        .then(res => {setUserData(res.data)})
-    },[mod])
+    
     
     return (
         <SignUpForm className={showUserInfo ? "active" : ""} onClick={stopPropagation}>
             <form onSubmit={onSubmitSignUp}>
             <FloatingLabel
-                    label="Name"
                     className="login-input">
-                    <Form.Control type="text" name={name} value={name} onChange={onChangeName} placeholder="Name"/>
+                    <Form.Control type="text" name={name} id="name" value={name} onChange={onChangeName} placeholder="Name"/>
+                    <label htmlFor="name">Name</label>
                 </FloatingLabel>
-                <FloatingLabel
+                {/* <FloatingLabel
                     label="ImageUpload"
                     className="login-input">
-                    <Form.Control type="file" value={email} onChange={onChangeEmail} placeholder="ID"/>
-                </FloatingLabel>
+                    <Form.Control type="file" value={email} onChange={onChangeEmail} placeholder=""/>
+                    <label htmlFor="name">Name</label>
+                </FloatingLabel> */}
                 <SignUpBtn type='submit'>변경</SignUpBtn>
             </form>
         </SignUpForm>

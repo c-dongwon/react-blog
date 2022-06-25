@@ -25,17 +25,18 @@ const SignUp = ({showSignUp, stopPropagation}) => {
         <SignUpForm className={showSignUp ? "active" : ""} onClick={stopPropagation}>
             <form onSubmit={onSubmitSignUp}>
             <FloatingLabel
-                    label="Name"
                     className="login-input">
-                    <Form.Control type="text" value={name} onChange={onChangeName} placeholder="Name"/>
+                    <Form.Control type="text" id="name2" value={name} onChange={onChangeName} placeholder="Name"/>
+                    <label htmlFor="name2">Name</label>
                 </FloatingLabel>
                 <FloatingLabel
-                    label="ID"
                     className="login-input">
                     <Form.Control type="text" value={email} onChange={onChangeEmail} placeholder="ID"/>
+                    <label htmlFor="id2">ID</label>
                 </FloatingLabel>
                 <FloatingLabel label="Password" className="login-input">
                     <Form.Control type="password" placeholder="Password" value={password} onChange={onChangePassword}/>
+                    <label htmlFor="password2">Password</label>
                 </FloatingLabel>
                 <SignUpBtn type='submit'>Sign Up</SignUpBtn>
             </form>

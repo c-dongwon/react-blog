@@ -56,7 +56,10 @@ const index = () => {
         e.stopPropagation();
       }, []);
       
-     
+      useEffect(() => {
+        axios.get("/api/user/auth")
+        .then(res => {setUserData(res.data)})
+    },[])
     
     return (
         <Section className={isDarkMode ? "dark" : ""} onClick={onCloseModal}>

@@ -29,8 +29,6 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
         .catch(error => setError(error.response.data))
     },[email, password])
 
-
-
     const onSubmitLogout = useCallback(() => {
         axios.get("/api/logout")
         .then(res => {
@@ -43,7 +41,8 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
     if(JSON.stringify(cookies) !== "{}" && cookies.x_auth !== "undefined"){
         setLoginData(true)
     }
-   },[])
+   },[]);
+
     return (
         <LayerForm className={showLogin ? "active" : ""} onClick={stopPropagation}> 
             {loginData ? 
@@ -56,12 +55,13 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
             : 
             <form onSubmit={onSubmitLogin}>
                 <FloatingLabel
-                    label="ID"
                     className="login-input">
-                    <Form.Control type="text" placeholder="name@example.com" value={email} onChange={onChangeEmail}/>
+                    <Form.Control type="text" placeholder="name@example.com" id="id" value={email} onChange={onChangeEmail}/>
+                    <label htmlFor="id">ID</label>
                 </FloatingLabel>
-                <FloatingLabel label="Password" className="login-input">
-                    <Form.Control type="password" placeholder="Password"  value={password} onChange={onChangePassword}/>
+                <FloatingLabel className="login-input">
+                    <Form.Control type="password" placeholder="Password" id="password"  value={password} onChange={onChangePassword}/>
+                    <label htmlFor="password">Password</label>
                 </FloatingLabel>
                 <LoginBtn type='submit'>
                     {
