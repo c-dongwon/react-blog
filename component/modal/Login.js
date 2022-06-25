@@ -5,28 +5,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useInput from '../../hook/useInput';
 import axios from 'axios';
 
-const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, onClickUserInfo, showUserInfo, removeCookie, userData,  setUserData}) => {
+const Login = ({removeCookie, setUserData, loginData, setLoginData, stopPropagation}) => {
     const [email, onChangeEmail ,setEmail] = useInput();
     const [password, onChangePassword ,setPassword] = useInput();
-    const [loginData, setLoginData] = useState(false);
     const [error, setError] = useState('');
 
     const onSubmitLogin = useCallback((e) => {
         e.preventDefault();
 
-        let body = {
+        axios.post("/api/login",{
             email:email,
             password:password
-        }
-
-        axios.post("/api/login",body)
+        })
         .then(res => {
             const { accessToken } = res.data;
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             withCredentials: true,
             setLoginData(true)
         })
-        .catch(error => setError(error.response.data))
     },[email, password])
 
     const onSubmitLogout = useCallback(() => {
@@ -37,11 +33,11 @@ const Login = ({cookies, showLogin, stopPropagation, onClickSignUp, showSignUp, 
         })
     },[]);
 
+   
    useEffect(() => {
-    if(JSON.stringify(cookies) !== "{}" && cookies.x_auth !== "undefined"){
-        setLoginData(true)
-    }
-   },[]);
+    axios.get("/api/user/auth")
+    .then(res => {setUserData(res.data)})
+    },[loginData])
 
     return (
         <LayerForm onClick={stopPropagation}> 

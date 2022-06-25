@@ -1,9 +1,10 @@
 import React from 'react';
 import {BsChevronRight} from "react-icons/bs";
+import { MyInfo } from '../style';
+
 const LoginAfter = () => {
     return (
-        <>
-        <div>
+        <MyInfo>
             <div className="imgWrap">                      
                 <img src="img/sample.png" alt="" />
             </div>
@@ -12,8 +13,7 @@ const LoginAfter = () => {
                 <p>정보수정, 로그아웃, 글쓰기</p>
             </div>
             <BsChevronRight/>   
-        </div>
-        </>
+        </MyInfo>
     );
 };
 

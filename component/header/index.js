@@ -5,7 +5,7 @@ import { BsChevronDown, BsChevronUp, BsChevronRight, BsSearch } from "react-icon
 import LoginAfter from './incloud/LoginAfter';
 import LoginBefore from './incloud/LoginBefore';
 
-const Header = ({darkMod, isDarkMode, onClickLogin}) => {
+const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData}) => {
     const [activeMenu, setActiveMenu] = useState(0);
 
     const toggleBtn = useCallback((idx) => {
@@ -24,8 +24,9 @@ const Header = ({darkMod, isDarkMode, onClickLogin}) => {
                     <input type="text" placeholder='검색'/>
                     <button><BsSearch/></button>
                 </SearchWrap>
-                <LoginBefore onClickLogin={onClickLogin}/>
-                 {/* <LoginAfter/> */}
+                {
+                    loginData ? <LoginAfter/> : <LoginBefore onClickLogin={onClickLogin}/>
+                }
                 <MenuList>
                     <li>
                         <button type='button' onClick={() => toggleBtn(1)} className={1 === activeMenu ? "active" : ""}>React{1 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>

@@ -20,13 +20,20 @@ const index = () => {
     const [ hasCookie, setHasCookie ] = useState(false);
     const [userData,  setUserData] = useState();
     const [menuActive, setMenuActive] = useState(false);
-    
+    const [loginData, setLoginData] = useState(false);
+
     useEffect(() => {    
         if (cookies.user && cookies.user !== 'undefined') { 
             setHasCookie(true);    
          }  
       }, [ cookies ]);
 
+      useEffect(() => {
+        if(JSON.stringify(cookies) !== "{}" && cookies.x_auth !== "undefined"){
+            setLoginData(true)
+        }
+       },[]);
+    
     const onClickLogin = useCallback((e) => {
         setShowLogin(prev => !prev);
         setShowSignUp(false);
@@ -57,22 +64,13 @@ const index = () => {
         e.stopPropagation();
       }, []);
       
-      useEffect(() => {
-        axios.get("/api/user/auth")
-        .then(res => {setUserData(res.data)})
-    },[])
-    
+
     return (
         <Section className={isDarkMode ? "dark" : ""} onClick={onCloseModal}>
             <GlobalStyles/>
-            <Header darkMod={darkMod} isDarkMode={isDarkMode} onClickLogin={onClickLogin}/>
+            <Header darkMod={darkMod} isDarkMode={isDarkMode} userData={userData} loginData={loginData} onClickLogin={onClickLogin}/>
             {
-                showLogin && <Login hasCookie={hasCookie} cookies={cookies} 
-                                    showLogin={showLogin} stopPropagation={stopPropagation} 
-                                    onClickSignUp={onClickSignUp} onClickUserInfo={onClickUserInfo} 
-                                    showUserInfo={showUserInfo} showSignUp={showSignUp} 
-                                    setHasCookie={setHasCookie} removeCookie={removeCookie}
-                                    userData={userData} setUserData={setUserData}/>
+                showLogin && <Login removeCookie={removeCookie} setUserData={setUserData} loginData={loginData} setLoginData={setLoginData} stopPropagation={stopPropagation}/>
             }
     
             
