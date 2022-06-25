@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const config = require('./config/key')
 const { User } = require('./models/User');
 const mongoose = require('mongoose')
+const multer = require('multer');
 const {auth} = require('./middleware/auth') 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -16,6 +17,16 @@ mongoose.connect(config.mongoURI)
 .then((res) => console.log("ok!"))
 .catch((error) => console.log(error))
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    const newFileName = file.originalname;
+    cb(null, newFileName);
+  }
+});
+const upload = multer({ storage: storage });
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
@@ -83,27 +94,30 @@ app.get('/api/logout', auth, (req, res) =>{
         })
 })
 
-  app.post("/api/modfiy", (req, res) => {
-    User.findOne(
-      {
-        email: req.body.email
-      },
-      (err, item) => {
-        if (err) throw err;
-        item.updateOne(
-          {
-            name: req.body.name,
-            image:req.body.image
-          },
-          (err) => {
-            if (err) throw err;
-            console.log("Update Success!");
-            res.send("Update Success!");
-          }
-        );
-      }
-    );
-  });
+  // app.post("/api/modfiy", (req, res) => {
+  //   User.findOne(
+  //     {
+  //       email: req.body.email
+  //     },
+  //     (err, item) => {
+  //       if (err) throw err;
+  //       item.updateOne(
+  //         {
+  //           name: req.body.name,
+  //           image:req.body.image
+  //         },
+  //         (err) => {
+  //           if (err) throw err;
+  //           console.log("Update Success!");
+  //           res.send("Update Success!");
+  //         }
+  //       );
+  //     }
+  //   );
+  // });
+app.post('/api/modfiy', upload.single('file'), (req, res) => {
+  console.log(req.file);
+});
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

@@ -13,10 +13,11 @@ const UserInfo = ({showUserInfo, stopPropagation, userData, setUserData}) => {
 
     const onSubmitSignUp = useCallback((e) => {
         e.preventDefault();
-       axios.post("/api/modfiy",{
-        name:name,
-        email:userData.email
-    })
+        const formData = new FormData();
+        formData.append('file', e.target.file.files[0])
+       axios.post("/api/modfiy", formData, {
+        header: { 'content-type': 'multipart/form-data' },
+      })
        .then(res => setMod(prev => !prev))
     },[name, email, password])
 
@@ -24,18 +25,13 @@ const UserInfo = ({showUserInfo, stopPropagation, userData, setUserData}) => {
     
     return (
         <SignUpForm className={showUserInfo ? "active" : ""} onClick={stopPropagation}>
-            <form onSubmit={onSubmitSignUp}>
+            <form onSubmit={onSubmitSignUp} encType='multipart/form-data'>
             <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" name={name} id="name" value={name} onChange={onChangeName} placeholder="Name"/>
                     <label htmlFor="name">Name</label>
                 </FloatingLabel>
-                {/* <FloatingLabel
-                    label="ImageUpload"
-                    className="login-input">
-                    <Form.Control type="file" value={email} onChange={onChangeEmail} placeholder=""/>
-                    <label htmlFor="name">Name</label>
-                </FloatingLabel> */}
+                <input type='file' name='file' />
                 <SignUpBtn type='submit'>변경</SignUpBtn>
             </form>
         </SignUpForm>
