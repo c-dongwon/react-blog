@@ -88,6 +88,11 @@ export const LayerForm = styled.div`
         font-weight: 500;
         text-align: left;
     }
+    .profileTxt{
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
 `
 export const LoginBtn = styled.button`
     height:30px;
@@ -129,4 +134,37 @@ export const LogOutBtn = styled.button`
     text-align: center;
     width: 100%;
     margin-top: 15px;
+`
+export const ImageView = styled.div`
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-right: 10px;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    margin-top: 10px;
+    overflow: hidden;
+    input{
+        opacity: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    svg{
+        font-size: 30px;
+        position: absolute;
+        left:50%;
+        top:50%;
+        transform: translate(-50%, -50%);
+    }
+    img{
+        max-width: 100%;
+    }
 `

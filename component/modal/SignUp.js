@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react';
-import { LayerForm, LoginBtn } from './style';
+import { LayerForm, LoginBtn, ImageView } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
+import { BsCameraFill } from "react-icons/bs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import useInput from '../../hook/useInput'; 
@@ -9,11 +10,20 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
     const [name, onChangeName, setName] = useInput();
     const [email, onChangeEmail, setEmail] = useInput();
     const [password, onChangePassword, setPassword] = useInput();
-    const [files, setFiles] = useState('')
+    const [files, setFiles] = useState('');
+    const [imageSrc, setImageSrc] = useState('');
     const [success, setSuccess] = useState(false);
 
     const onFile = useCallback((e) => {
         setFiles(e.target.files)
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]); 
+        return new Promise((resolve) => {
+          reader.onload = () => {
+            setImageSrc(reader.result); 
+            resolve();  
+          };  
+        });
     },[files])
 
     const onSubmitSignUp = useCallback((e) => {
@@ -36,7 +46,13 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
             <form onSubmit={onSubmitSignUp}  encType='multipart/form-data'>
             <h2>회원가입</h2>
             <button type='button' className='signUpBtn' onClick={onClickLogin}>회원이신가요? <span>로그인하기</span></button>
-            <input type="file" name="file" id="file" onChange={onFile}/>
+            <ImageView>
+                {
+                    files ? <img src={imageSrc} alt="" /> : <BsCameraFill/>
+                }
+             <input type="file" name="file" id="file" onChange={onFile}/>
+            </ImageView>
+            <p className='profileTxt'>프로필이미지 설정</p>
             <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" id="name2" value={name || ""} onChange={onChangeName} placeholder="Name"/>

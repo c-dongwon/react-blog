@@ -34,8 +34,14 @@ export const MyInfo = styled.button`
         border-radius: 50%;
         background-color: #ffd2d2;
         margin-right: 10px;
+        overflow: hidden;
+        position: relative;
         img{
-            max-width: 100%;
+            max-width:100%;
+            position: absolute;
+            left: 50%;
+            top:50%;
+            transform: translate(-50%, -50%);
         }
     }
     .infoWrap{
