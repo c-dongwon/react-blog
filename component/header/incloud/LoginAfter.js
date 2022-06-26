@@ -5,8 +5,10 @@ import { MyInfo } from '../style';
 const LoginAfter = ({onClickUserInfo, userData}) => {
     return (
         <MyInfo onClick={onClickUserInfo}>
-            <div className="imgWrap">                      
-                <img src="img/sample.png" alt="" />
+            <div className="imgWrap"> 
+            {
+                userData ? <img src={userData.file} alt="" /> : <img src="img/sample.png" alt="" />
+            }                     
             </div>
             <div className='infoWrap'>
                 <h3>{userData?.name}</h3>                 

@@ -1,34 +1,42 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import { LayerForm, LoginBtn } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import useInput from '../../hook/useInput';
-import { useState } from 'react';
+import useInput from '../../hook/useInput'; 
 
 const SignUp = ({stopPropagation, onClickLogin}) => {
     const [name, onChangeName, setName] = useInput();
     const [email, onChangeEmail, setEmail] = useInput();
     const [password, onChangePassword, setPassword] = useInput();
+    const [files, setFiles] = useState('')
     const [success, setSuccess] = useState(false);
 
+    const onFile = useCallback((e) => {
+        setFiles(e.target.files)
+    },[files])
+
     const onSubmitSignUp = useCallback((e) => {
-        e.preventDefault();
-        axios.post("/api/signup",{
-            name:name,
-            email:email,
-            password:password
-        })
+        e.preventDefault(); 
+        let formData = new FormData();
+        formData.append("name",name);
+        formData.append("email",email);
+        formData.append("password",password);
+        formData.append("file",files[0]);
+
+        axios.post("/api/signup", formData, {
+        header: { 'content-type': 'multipart/form-data' },
+      })
         .then(res => setSuccess(true))
         .catch(error => console.log(error))
-    },[name, email, password])
+    },[name, email, password, files])
 
     return (
         <LayerForm onClick={stopPropagation}>
-            <form onSubmit={onSubmitSignUp}>
+            <form onSubmit={onSubmitSignUp}  encType='multipart/form-data'>
             <h2>회원가입</h2>
             <button type='button' className='signUpBtn' onClick={onClickLogin}>회원이신가요? <span>로그인하기</span></button>
-            <input type="file" />
+            <input type="file" name="file" id="file" onChange={onFile}/>
             <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" id="name2" value={name || ""} onChange={onChangeName} placeholder="Name"/>

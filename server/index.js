@@ -10,6 +10,7 @@ const {auth} = require('./middleware/auth')
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static('uploads'));
 
 mongoose.connect(config.mongoURI)
 
@@ -32,12 +33,22 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.post('/api/modfiy', upload.single('file'), (req, res) => {
-  console.log(req.file);
-});
+// app.post('/api/modfiy', upload.single('file'), (req, res) => {
+//   console.log(req.file);
+// });
 
-app.post('/api/signup', (req, res) =>{
-    const user = new User(req.body);
+app.post('/api/signup', upload.single('file'), (req, res) =>{
+  const url = req.protocol + '://' + req.get('host')
+
+    const user = new User({
+      name:req.body.name,
+      email:req.body.email,
+      password:req.body.password,
+      file:url + '/uploads/' + req.file.filename 
+    });
+
+    console.log(req.file);
+    
     user.save((err, userInfo) =>{
         if(err) return res.json({success:false, err});
         return res.status(200).json({
@@ -84,7 +95,7 @@ app.get('/api/user/auth', auth, (req, res) =>{
         name: req.user.name,
         lastname: req.user.lastname,
         role: req.user.role,
-        image: req.user.image
+        file: req.user.file
       })
 })
 
