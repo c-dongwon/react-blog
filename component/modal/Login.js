@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useInput from '../../hook/useInput';
 import axios from 'axios';
 
-const Login = ({removeCookie, setUserData, loginData, setLoginData, stopPropagation, setShowLogin, onClickSignUp}) => {
+const Login = ({setLoginData, stopPropagation, setShowLogin, onClickSignUp}) => {
     const [email, onChangeEmail ,setEmail] = useInput();
     const [password, onChangePassword ,setPassword] = useInput();
     const [error, setError] = useState('');
@@ -40,20 +40,6 @@ const Login = ({removeCookie, setUserData, loginData, setLoginData, stopPropagat
         })
         .catch(err => setError(err.response.data.message))
     },[email, password])
-
-    const onSubmitLogout = useCallback(() => {
-        axios.get("/api/logout")
-        .then(res => {
-            removeCookie("x_auth")
-            setLoginData(false)
-        })
-    },[]);
-
-   
-   useEffect(() => {
-    axios.get("/api/user/auth")
-    .then(res => {setUserData(res.data)})
-    },[loginData])
 
     return (
         <LayerForm onClick={stopPropagation}> 

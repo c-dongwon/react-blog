@@ -79,6 +79,15 @@ export const LayerForm = styled.div`
         font-size: 14px;
         font-weight: 500;
     }
+    .succBtn{
+        border:0;
+        background-color: transparent;
+        margin-top: 15px;
+        color: #08c708;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: left;
+    }
 `
 export const LoginBtn = styled.button`
     height:30px;

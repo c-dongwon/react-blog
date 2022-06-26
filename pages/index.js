@@ -71,19 +71,28 @@ const index = () => {
         e.stopPropagation();
       }, []);
       
-
+    useEffect(() => {
+        axios.get("/api/user/auth")
+        .then(res => {setUserData(res.data)})
+    },[loginData])
     return (
         <Section className={isDarkMode ? "dark" : ""} onClick={onCloseModal}>
             <GlobalStyles/>
-            <Header darkMod={darkMod} isDarkMode={isDarkMode} userData={userData} loginData={loginData} onClickLogin={onClickLogin}/>
+            <Header darkMod={darkMod} isDarkMode={isDarkMode} 
+                    userData={userData} loginData={loginData} 
+                    onClickLogin={onClickLogin} onClickUserInfo={onClickUserInfo}/>
             {
-                showLogin && <Login removeCookie={removeCookie} setUserData={setUserData} 
-                                    loginData={loginData} setLoginData={setLoginData} stopPropagation={stopPropagation} 
+                showLogin && <Login setUserData={setUserData} loginData={loginData} 
+                                    setLoginData={setLoginData} stopPropagation={stopPropagation} 
                                     setShowLogin={setShowLogin} onClickSignUp={onClickSignUp}/>
             }
     
             {
                 showSignUp && <SignUp stopPropagation={stopPropagation} onClickLogin={onClickLogin}/>
+            }
+
+            {
+                showUserInfo && <UserInfo stopPropagation={stopPropagation} removeCookie={removeCookie} setLoginData={setLoginData} setShowUserInfo={setShowUserInfo}/>
             }
         </Section>
     );
