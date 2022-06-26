@@ -28,7 +28,7 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
             <form onSubmit={onSubmitSignUp}>
             <h2>회원가입</h2>
             <button type='button' className='signUpBtn' onClick={onClickLogin}>회원이신가요? <span>로그인하기</span></button>
-
+            <input type="file" />
             <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" id="name2" value={name || ""} onChange={onChangeName} placeholder="Name"/>
