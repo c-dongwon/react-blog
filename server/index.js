@@ -17,6 +17,10 @@ mongoose.connect(config.mongoURI)
 .then((res) => console.log("ok!"))
 .catch((error) => console.log(error))
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
@@ -27,9 +31,10 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+
+app.post('/api/modfiy', upload.single('file'), (req, res) => {
+  console.log(req.file);
+});
 
 app.post('/api/signup', (req, res) =>{
     const user = new User(req.body);
@@ -46,7 +51,7 @@ app.post('/api/login', (req, res) => {
     //요청된 이메일을 데이터베이스에서 있는지 찾는다.
     User.findOne({email: req.body.email},(err, user) => {
         if(!user){
-            return res.json({
+            return res.status(404).json({
                 loginSuccess: false,
                 message:"이메일이 존재하지 않습니다."
             });
@@ -55,7 +60,7 @@ app.post('/api/login', (req, res) => {
         //요청된 이메일이 데이터베이스에 있다면 비밀번호가 일치하는지 확인
         user.comparePassword(req.body.password, (err, isMatch) =>{
             if(!isMatch){
-                return res.json({loginSuccess:false,message:"비밀번호가 틀렸습니다."});
+                return res.status(404).json({loginSuccess:false,message:"비밀번호가 틀렸습니다."});
             };
             //비밀번호가 일치하다면 token생성
             user.generateToken((err, user) => {
@@ -115,9 +120,7 @@ app.get('/api/logout', auth, (req, res) =>{
   //     }
   //   );
   // });
-app.post('/api/modfiy', upload.single('file'), (req, res) => {
-  console.log(req.file);
-});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
