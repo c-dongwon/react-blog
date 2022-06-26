@@ -1,6 +1,7 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import { SignUpForm, LogOutBtn, SignUpBtn } from './style';
+import { SignUpForm, LogOutBtn, SignUpBtn, ImageView } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
+import { BsCameraFill } from "react-icons/bs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import useInput from '../../hook/useInput';
@@ -9,16 +10,31 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
     const [name, onChangeName, setName] = useInput();
     const [email, onChangeEmail, setEmail] = useInput();
     const [password, onChangePassword, setPassword] = useInput();
+    const [files, setFiles] = useState('');
+    const [imageSrc, setImageSrc] = useState('');
+
+    const onFile = useCallback((e) => {
+        setFiles(e.target.files)
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]); 
+        return new Promise((resolve) => {
+          reader.onload = () => {
+            setImageSrc(reader.result); 
+            resolve();  
+          };  
+        });
+    },[files])
 
     const onSubmitSignUp = useCallback((e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('file', e.target.file.files[0])
-       axios.post("/api/modfiy", formData, {
+        e.preventDefault(); 
+        let formData = new FormData();
+        formData.append("name",name);
+        // formData.append("file",files[0]);
+
+        axios.post("/api/modfiy", formData, {
         header: { 'content-type': 'multipart/form-data' },
       })
-       .then(res => setMod(prev => !prev))
-    },[name, email, password])
+    },[name, files])
 
     const onSubmitLogout = useCallback(() => {
         axios.get("/api/logout")
@@ -32,12 +48,17 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
     return (
         <SignUpForm className={showUserInfo ? "active" : ""} onClick={stopPropagation}>
             <form onSubmit={onSubmitSignUp} encType='multipart/form-data'>
+            <ImageView>
+                {
+                    files ? <img src={imageSrc} alt="" /> : <BsCameraFill/>
+                }
+             <input type="file" name="file" id="file" onChange={onFile}/>
+            </ImageView>
             <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" name={name} id="name" value={name || ""} onChange={onChangeName} placeholder="Name"/>
                     <label htmlFor="name">Name</label>
                 </FloatingLabel>
-                <input type='file' name='file' />
                 <SignUpBtn type='submit'>변경</SignUpBtn>
                 <LogOutBtn onClick={onSubmitLogout}>로그아웃</LogOutBtn>
             </form>
