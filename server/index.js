@@ -57,6 +57,27 @@ app.post('/api/signup', upload.single('file'), (req, res) =>{
     });
 })
 
+app.post("/api/modfiy", (req, res) => {
+  User.findOne(
+    {
+      email: req.body.email
+    },
+    (err, item) => {
+      if (err) throw err;
+      item.updateOne(
+        {
+          name: req.body.name,
+          file:url + '/uploads/' + req.file.filename
+        },
+        (err) => {
+          if (err) throw err;
+          console.log("Update Success!");
+          res.send("Update Success!");
+        }
+      );
+    }
+  );
+});
 
 app.post('/api/login', (req, res) => {
     //요청된 이메일을 데이터베이스에서 있는지 찾는다.
@@ -110,27 +131,7 @@ app.get('/api/logout', auth, (req, res) =>{
         })
 })
 
-  // app.post("/api/modfiy", (req, res) => {
-  //   User.findOne(
-  //     {
-  //       email: req.body.email
-  //     },
-  //     (err, item) => {
-  //       if (err) throw err;
-  //       item.updateOne(
-  //         {
-  //           name: req.body.name,
-  //           image:req.body.image
-  //         },
-  //         (err) => {
-  //           if (err) throw err;
-  //           console.log("Update Success!");
-  //           res.send("Update Success!");
-  //         }
-  //       );
-  //     }
-  //   );
-  // });
+  
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
