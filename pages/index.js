@@ -45,6 +45,7 @@ const index = () => {
     //회원가입
     const onClickSignUp= useCallback((e) => {
         setShowSignUp(prev => !prev);
+        setShowLogin(false);
         e.stopPropagation();
     },[showSignUp]);
 
@@ -59,7 +60,7 @@ const index = () => {
         setShowLogin(false);
         setShowSignUp(false);
         setShowUserInfo(false);
-    },[showLogin])
+    },[showLogin, showSignUp])
 
     const darkMod = useCallback(() => {
         setIsDarkMode(prev => !prev)
@@ -77,10 +78,13 @@ const index = () => {
             <Header darkMod={darkMod} isDarkMode={isDarkMode} userData={userData} loginData={loginData} onClickLogin={onClickLogin}/>
             {
                 showLogin && <Login removeCookie={removeCookie} setUserData={setUserData} 
-                loginData={loginData} setLoginData={setLoginData} stopPropagation={stopPropagation}/>
+                                    loginData={loginData} setLoginData={setLoginData} stopPropagation={stopPropagation} 
+                                    setShowLogin={setShowLogin} onClickSignUp={onClickSignUp}/>
             }
     
-            
+            {
+                showSignUp && <SignUp stopPropagation={stopPropagation} onClickLogin={onClickLogin}/>
+            }
         </Section>
     );
 };

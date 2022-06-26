@@ -1,24 +1,18 @@
 import styled from "styled-components";
 
 export const SignUpForm =styled.div`
-    position: fixed;
-    right: 299px;
-    top:79px;
-    width: 0px;
-    height: 220px;
-    border:1px solid #ddd;
-    border-right: 0;
-    border-left: 0;
-    border-top: 0;
-    transition: 0.3s;
-    overflow: hidden;
+   position: fixed;
+    left:50%; 
+    top:50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding:20px 15px;
     box-sizing: border-box;
+    border-radius: 10px;
     form{
         margin: 0 15px;
-    }
-    &.active{
-        width: 300px;
-        border-left: 1px solid #ddd;
     }
     .login-input{
         margin-top: 15px;
@@ -75,10 +69,15 @@ export const LayerForm = styled.div`
         padding: 0;
         font-size: 14px;
         font-weight: 400;
-        margin-bottom: 10px;
         span{
             color:#1276E1;
         }
+    }
+    .errorTxt{
+        margin-top: 15px;
+        color: red;
+        font-size: 14px;
+        font-weight: 500;
     }
 `
 export const LoginBtn = styled.button`
@@ -90,7 +89,7 @@ export const LoginBtn = styled.button`
     font-size: 16px;
     text-align: center;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 15px;
     font-weight: 500;;
 `
 export const SignUpBtn = styled.button`
