@@ -23,6 +23,7 @@ const Login = ({removeCookie, setUserData, loginData, setLoginData, stopPropagat
             withCredentials: true,
             setLoginData(true)
         })
+        .catch(err => setError(err))
     },[email, password])
 
     const onSubmitLogout = useCallback(() => {
@@ -53,6 +54,9 @@ const Login = ({removeCookie, setUserData, loginData, setLoginData, stopPropagat
                     <Form.Control type="password" placeholder="Password" id="password"  value={password} onChange={onChangePassword}/>
                     <label htmlFor="password">Password</label>
                 </FloatingLabel>
+                {
+                    error && error
+                }
                 <LoginBtn type='submit'>
                     로그인
                 </LoginBtn>

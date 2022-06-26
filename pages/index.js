@@ -16,40 +16,45 @@ const index = () => {
     const [showLogin, setShowLogin] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
     const [showUserInfo, setShowUserInfo] = useState(false);
-    const [ cookies, removeCookie ] = useCookies([ 'user' ]);  
-    const [ hasCookie, setHasCookie ] = useState(false);
+    const [cookies, removeCookie] = useCookies([ 'user' ]);  
+    const [hasCookie, setHasCookie] = useState(false);
     const [userData,  setUserData] = useState();
-    const [menuActive, setMenuActive] = useState(false);
     const [loginData, setLoginData] = useState(false);
-
+    
+    //쿠키저장
     useEffect(() => {    
         if (cookies.user && cookies.user !== 'undefined') { 
             setHasCookie(true);    
          }  
       }, [ cookies ]);
-
-      useEffect(() => {
+    
+    //로그인 유지
+    useEffect(() => {
         if(JSON.stringify(cookies) !== "{}" && cookies.x_auth !== "undefined"){
             setLoginData(true)
         }
-       },[]);
-    
+     },[]);
+
+    //로그인
     const onClickLogin = useCallback((e) => {
         setShowLogin(prev => !prev);
         setShowSignUp(false);
         e.stopPropagation();
     },[showLogin]);
 
+    //회원가입
     const onClickSignUp= useCallback((e) => {
         setShowSignUp(prev => !prev);
         e.stopPropagation();
     },[showSignUp]);
 
+    //회원정보 수정
     const onClickUserInfo= useCallback((e) => {
         setShowUserInfo(prev => !prev);
         e.stopPropagation();
     },[showSignUp]);
 
+    //modal close 함수
     const onCloseModal = useCallback(() => {
         setShowLogin(false);
         setShowSignUp(false);
@@ -60,6 +65,7 @@ const index = () => {
         setIsDarkMode(prev => !prev)
     },[isDarkMode]);
 
+    //버블링 방지
     const stopPropagation = useCallback((e) => {
         e.stopPropagation();
       }, []);
@@ -70,7 +76,8 @@ const index = () => {
             <GlobalStyles/>
             <Header darkMod={darkMod} isDarkMode={isDarkMode} userData={userData} loginData={loginData} onClickLogin={onClickLogin}/>
             {
-                showLogin && <Login removeCookie={removeCookie} setUserData={setUserData} loginData={loginData} setLoginData={setLoginData} stopPropagation={stopPropagation}/>
+                showLogin && <Login removeCookie={removeCookie} setUserData={setUserData} 
+                loginData={loginData} setLoginData={setLoginData} stopPropagation={stopPropagation}/>
             }
     
             
