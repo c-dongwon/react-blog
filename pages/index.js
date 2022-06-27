@@ -92,7 +92,7 @@ const index = () => {
             }
 
             {
-                showUserInfo && <UserInfo stopPropagation={stopPropagation} removeCookie={removeCookie} setLoginData={setLoginData} setShowUserInfo={setShowUserInfo}/>
+                showUserInfo && <UserInfo stopPropagation={stopPropagation} removeCookie={removeCookie} setLoginData={setLoginData} setShowUserInfo={setShowUserInfo} userData={userData}/>
             }
         </Section>
     );

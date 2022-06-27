@@ -57,28 +57,29 @@ app.post('/api/signup', upload.single('file'), (req, res) =>{
     });
 })
 
-app.post("/api/modfiy", (req, res) => {
-  User.findOne(
-    {
-      email: req.body.email
-    },
-    (err, item) => {
-      if (err) throw err;
-      item.updateOne(
-        {
-          name: req.body.name,
-          file:url + '/uploads/' + req.file.filename
-        },
-        (err) => {
-          if (err) throw err;
-          console.log("Update Success!");
-          res.send("Update Success!");
-        }
-      );
-    }
-  );
-});
-
+// app.post("/api/modfiy", (req, res) => {
+//   User.updateOne({email:req.body.email}, {$set:{name:req.body.name}}, (err,result) =>{
+//     if(err){
+//         console.log(err)
+//       }else{
+//         console.log("데이터 수정 성공")
+//       }
+//   }
+//   )
+// });
+app.post('/api/modfiy', auth, upload.single('file'), (req, res) =>{
+  const url = req.protocol + '://' + req.get('host')
+  User.findOneAndUpdate({_id: req.user._id },
+      { name:req.body.name, file:url + '/uploads/' + req.file.filename },{ new: true }
+      , (err, user) => {
+        if (err) return res.json({ success: false, err });
+        console.log(req.body.name)
+        return res.status(200).send({
+          success: true
+        })
+      })
+})
+  
 app.post('/api/login', (req, res) => {
     //요청된 이메일을 데이터베이스에서 있는지 찾는다.
     User.findOne({email: req.body.email},(err, user) => {

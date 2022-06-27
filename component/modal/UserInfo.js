@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import useInput from '../../hook/useInput';
 
-const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, setShowUserInfo}) => {
+const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, setShowUserInfo,userData}) => {
     const [name, onChangeName, setName] = useInput();
     const [email, onChangeEmail, setEmail] = useInput();
     const [password, onChangePassword, setPassword] = useInput();
@@ -24,16 +24,16 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
           };  
         });
     },[files])
-
-    const onSubmitSignUp = useCallback((e) => {
+   
+    const onSubmitMod = useCallback((e) => {
         e.preventDefault(); 
         let formData = new FormData();
         formData.append("name",name);
-        // formData.append("file",files[0]);
+        formData.append("file",files[0]);
 
         axios.post("/api/modfiy", formData, {
-        header: { 'content-type': 'multipart/form-data' },
-      })
+            header: { 'content-type': 'multipart/form-data' },
+          })
     },[name, files])
 
     const onSubmitLogout = useCallback(() => {
@@ -47,7 +47,7 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
 
     return (
         <SignUpForm className={showUserInfo ? "active" : ""} onClick={stopPropagation}>
-            <form onSubmit={onSubmitSignUp} encType='multipart/form-data'>
+            <form onSubmit={onSubmitMod} encType='multipart/form-data'>
             <ImageView>
                 {
                     files ? <img src={imageSrc} alt="" /> : <BsCameraFill/>
