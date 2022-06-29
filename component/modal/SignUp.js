@@ -13,6 +13,7 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
     const [files, setFiles] = useState('');
     const [imageSrc, setImageSrc] = useState('');
     const [success, setSuccess] = useState(false);
+    const [error, setError] = useState('');
 
     const onFile = useCallback((e) => {
         setFiles(e.target.files)
@@ -28,6 +29,9 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
 
     const onSubmitSignUp = useCallback((e) => {
         e.preventDefault(); 
+        setError("");
+        setSuccess("");
+        
         let formData = new FormData();
         formData.append("name",name);
         formData.append("email",email);
@@ -38,7 +42,7 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
         header: { 'content-type': 'multipart/form-data' },
       })
         .then(res => setSuccess(true))
-        .catch(error => console.log(error))
+        .catch(error => setError(error.response.data.message))
     },[name, email, password, files])
 
     return (
@@ -69,6 +73,9 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
                 </FloatingLabel>
                 {
                     success && <button type="button" className='succBtn' onClick={onClickLogin}>회원가입성공! 로그인페이지로 이동</button>
+                }
+                {
+                    error && <p className='errorTxt'>{error}</p>
                 }
                 <LoginBtn type='submit'>
                     회원가입

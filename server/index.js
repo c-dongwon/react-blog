@@ -46,27 +46,24 @@ app.post('/api/signup', upload.single('file'), (req, res) =>{
       password:req.body.password,
       file:url + '/uploads/' + req.file.filename 
     });
-
-    console.log(req.file);
+ 
+    User.findOne({email: req.body.email},(err, id) => {
+      if(id){
+        return res.status(404).json({success:false,message:"중복된 아이디 입니다."});
+      }else if(req.body.password.length < 5){
+        return res.status(404).json({success:false,message:"비밀번호는 5글자 이상입니다."});
+      }else{
+        user.save((err, userInfo) =>{
+          if(err) return res.status(404).json({success:false,err});
+          return res.status(200).json({
+              success:true
+          })
+      });
+      }
+    })
     
-    user.save((err, userInfo) =>{
-        if(err) return res.json({success:false, err});
-        return res.status(200).json({
-            success:true
-        })
-    });
 })
 
-// app.post("/api/modfiy", (req, res) => {
-//   User.updateOne({email:req.body.email}, {$set:{name:req.body.name}}, (err,result) =>{
-//     if(err){
-//         console.log(err)
-//       }else{
-//         console.log("데이터 수정 성공")
-//       }
-//   }
-//   )
-// });
 app.post('/api/modfiy', auth, upload.single('file'), (req, res) =>{
   const url = req.protocol + '://' + req.get('host')
   User.findOneAndUpdate({_id: req.user._id },
