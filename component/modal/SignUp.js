@@ -9,11 +9,13 @@ import useInput from '../../hook/useInput';
 const SignUp = ({stopPropagation, onClickLogin}) => {
     const [name, onChangeName, setName] = useInput();
     const [email, onChangeEmail, setEmail] = useInput();
-    const [password, onChangePassword, setPassword] = useInput();
+    const [password, , setPassword] = useInput();
+    const [passwordCheck, , setPasswordCheck] = useInput();
     const [files, setFiles] = useState('');
     const [imageSrc, setImageSrc] = useState('');
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
+    const [mismatchError, setMismatchError] = useState(false);
 
     const onFile = useCallback((e) => {
         setFiles(e.target.files)
@@ -27,11 +29,39 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
         });
     },[files])
 
+    const onChangePassword = useCallback(
+        (e) => {
+          setPassword(e.target.value);
+          setMismatchError(passwordCheck !== e.target.value);
+        },
+        [passwordCheck, setPassword],
+      );
+    
+      const onChangePasswordCheck = useCallback(
+        (e) => {
+          setPasswordCheck(e.target.value);
+          setMismatchError(password !== e.target.value);
+        },
+        [password, setPasswordCheck],
+      );
+      
     const onSubmitSignUp = useCallback((e) => {
         e.preventDefault(); 
         setError("");
         setSuccess("");
-        
+        if(!name || !name.trim()){
+            setError("이름을 입력해주세요.");
+            return false;
+        }else if(!email || !email.trim()){
+            setError("아이디를 입력해주세요");
+            return false;
+        }else if(!password || !password.trim()){
+            setError("비밀번호를 입력해주세요");
+            return false;
+        }else if(mismatchError){
+            setError("비밀번호가 일치하지않습니다.");
+            return false;
+        }
         let formData = new FormData();
         formData.append("name",name);
         formData.append("email",email);
@@ -43,7 +73,7 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
       })
         .then(res => setSuccess(true))
         .catch(error => setError(error.response.data.message))
-    },[name, email, password, files])
+    },[name, email, password, files, passwordCheck])
 
     return (
         <LayerForm onClick={stopPropagation}>
@@ -54,22 +84,26 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
                 {
                     files ? <img src={imageSrc} alt="" /> : <BsCameraFill/>
                 }
-             <input type="file" name="file" id="file" onChange={onFile}/>
+             <input type="file" name="file" id="file" accept="image/png, image/jpeg" onChange={onFile}/>
             </ImageView>
             <p className='profileTxt'>프로필이미지 설정</p>
             <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" id="name2" value={name || ""} onChange={onChangeName} placeholder="Name"/>
-                    <label htmlFor="name2">Name</label>
+                    <label htmlFor="name2">이름</label>
                 </FloatingLabel>
                 <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" value={email} onChange={onChangeEmail || ""} placeholder="ID"/>
-                    <label htmlFor="id2">ID</label>
+                    <label htmlFor="id2">아이디</label>
                 </FloatingLabel>
-                <FloatingLabel label="Password" className="login-input">
+                <FloatingLabel className="login-input">
                     <Form.Control type="password" placeholder="Password" value={password || ""} onChange={onChangePassword}/>
-                    <label htmlFor="password2">Password</label>
+                    <label htmlFor="password2">비밀번호</label>
+                </FloatingLabel>
+                <FloatingLabel className="login-input">
+                    <Form.Control type="password" placeholder="Password" value={passwordCheck || ""} onChange={onChangePasswordCheck}/>
+                    <label htmlFor="password3">비밀번호확인</label>
                 </FloatingLabel>
                 {
                     success && <button type="button" className='succBtn' onClick={onClickLogin}>회원가입성공! 로그인페이지로 이동</button>

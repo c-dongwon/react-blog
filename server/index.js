@@ -39,14 +39,19 @@ const upload = multer({ storage: storage });
 
 app.post('/api/signup', upload.single('file'), (req, res) =>{
   const url = req.protocol + '://' + req.get('host')
+  let fileItme = null;
+
+    if(req.file){
+      fileItme = url + '/uploads/' + req.file.filename 
+    }
 
     const user = new User({
       name:req.body.name,
       email:req.body.email,
       password:req.body.password,
-      file:url + '/uploads/' + req.file.filename 
+      file:fileItme
     });
- 
+   
     User.findOne({email: req.body.email},(err, id) => {
       if(id){
         return res.status(404).json({success:false,message:"중복된 아이디 입니다."});
