@@ -1,7 +1,7 @@
 import React,{useState, useEffect, useCallback} from 'react';
 import { HeaderBar, LeftMenu, HeaderWrap, MyInfo, MenuList, SwitchBtn, FlexLi, SearchWrap } from './style';
 import Link from 'next/link'
-import { BsChevronDown, BsChevronUp, BsChevronRight, BsSearch } from "react-icons/bs";
+import { BsChevronDown, BsChevronUp, BsChevronRight, BsSearch, BsFillPencilFill } from "react-icons/bs";
 import LoginAfter from './incloud/LoginAfter';
 import LoginBefore from './incloud/LoginBefore';
 
@@ -20,6 +20,11 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
         <HeaderWrap>        
             <LeftMenu>
                 <h1>블로그</h1>
+                <Link href="write">
+                    <a>
+                        <BsFillPencilFill/>
+                    </a>
+                </Link>
                 <SearchWrap>
                     <input type="text" placeholder='검색'/>
                     <button><BsSearch/></button>

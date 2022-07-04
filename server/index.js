@@ -77,7 +77,7 @@ app.post('/api/modfiy', auth, upload.single('file'), (req, res) =>{
       { name:req.body.name, file:fileItme},{ new: true }
       , (err, user) => {
         if (err) return res.json({ success: false, err });
-        console.log(req.body.name)
+
         return res.status(200).send({
           success: true
         })
