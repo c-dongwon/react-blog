@@ -7,11 +7,22 @@ import axios from 'axios';
 import useInput from '../../hook/useInput';
 
 const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, setShowUserInfo,userData}) => {
-    const [name, onChangeName, setName] = useInput();
+    const [name, onChangeName, setName] = useInput("");
     const [email, onChangeEmail, setEmail] = useInput();
     const [password, onChangePassword, setPassword] = useInput();
-    const [files, setFiles] = useState('');
+    const [files, setFiles] = useState();
     const [imageSrc, setImageSrc] = useState('');
+
+    useEffect(() => {
+        if(userData.name){
+            setName(userData.name);
+        }
+        if(userData.file){
+            // setFiles(userData.file)
+            setImageSrc(userData.file)
+        }
+    },[])
+   
 
     const onFile = useCallback((e) => {
         setFiles(e.target.files)
@@ -24,24 +35,33 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
           };  
         });
     },[files])
-   
+    console.log(files)
+ 
     const onSubmitMod = useCallback((e) => {
         e.preventDefault(); 
         let formData = new FormData();
         formData.append("name",name);
+        
+       if(files){
         formData.append("file",files[0]);
-
+       }
+        
         axios.post("/api/modfiy", formData, {
             header: { 'content-type': 'multipart/form-data' },
+          })
+          .then(res => {
+              setName("");
+              setFiles("");
+              setShowUserInfo(false);
           })
     },[name, files])
 
     const onSubmitLogout = useCallback(() => {
         axios.get("/api/logout")
         .then(res => {
-            removeCookie("x_auth")
-            setLoginData(false)
-            setShowUserInfo(false)
+            removeCookie("x_auth");
+            setLoginData(false);
+            setShowUserInfo(false);
         })
     },[]);
 
@@ -50,13 +70,13 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
             <form onSubmit={onSubmitMod} encType='multipart/form-data'>
             <ImageView>
                 {
-                    files ? <img src={imageSrc} alt="" /> : <BsCameraFill/>
+                    imageSrc ? <img src={imageSrc} alt="" /> : <BsCameraFill/>
                 }
-             <input type="file" name="file" id="file" onChange={onFile}/>
+             <input type="file" name="file" id="file" accept="image/png, image/jpeg" onChange={onFile}/>
             </ImageView>
             <FloatingLabel
                     className="login-input">
-                    <Form.Control type="text" name={name} id="name" value={name || ""} onChange={onChangeName} placeholder="Name"/>
+                    <Form.Control type="text" name="name" id="name" value={name || ""} onChange={onChangeName} placeholder={userData.name}/>
                     <label htmlFor="name">Name</label>
                 </FloatingLabel>
                 <SignUpBtn type='submit'>변경</SignUpBtn>

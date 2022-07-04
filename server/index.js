@@ -33,10 +33,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// app.post('/api/modfiy', upload.single('file'), (req, res) => {
-//   console.log(req.file);
-// });
-
 app.post('/api/signup', upload.single('file'), (req, res) =>{
   const url = req.protocol + '://' + req.get('host')
   let fileItme = null;
@@ -70,9 +66,15 @@ app.post('/api/signup', upload.single('file'), (req, res) =>{
 })
 
 app.post('/api/modfiy', auth, upload.single('file'), (req, res) =>{
-  const url = req.protocol + '://' + req.get('host')
+  const url = req.protocol + '://' + req.get('host');
+  let fileItme = req.user.file
+    
+    if(req.file){
+      fileItme = url + '/uploads/' + req.file.filename 
+    }
+
   User.findOneAndUpdate({_id: req.user._id },
-      { name:req.body.name, file:url + '/uploads/' + req.file.filename },{ new: true }
+      { name:req.body.name, file:fileItme},{ new: true }
       , (err, user) => {
         if (err) return res.json({ success: false, err });
         console.log(req.body.name)
