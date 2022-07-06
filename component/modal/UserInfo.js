@@ -1,7 +1,7 @@
 import React, {useCallback, useState, useEffect} from 'react';
 import { SignUpForm, LogOutBtn, SignUpBtn, ImageView } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
-import { BsCameraFill } from "react-icons/bs";
+import { BsCameraFill, BsXLg } from "react-icons/bs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import useInput from '../../hook/useInput';
@@ -67,6 +67,7 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
 
     return (
         <SignUpForm className={showUserInfo ? "active" : ""} onClick={stopPropagation}>
+                <CloseBtn type="button" onClick={() => setShowUserInfo(false)}><BsXLg/></CloseBtn>
             <form onSubmit={onSubmitMod} encType='multipart/form-data'>
             <ImageView>
                 {

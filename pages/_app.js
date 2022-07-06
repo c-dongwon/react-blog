@@ -65,6 +65,8 @@ const App = ({ Component, pageProps }) => {
         e.stopPropagation();
     },[showSignUp]);
 
+ 
+
     //modal close 함수
     const onCloseModal = useCallback(() => {
         setShowLogin(false);
@@ -102,13 +104,15 @@ const App = ({ Component, pageProps }) => {
             }
     
             {
-                showSignUp && <SignUp stopPropagation={stopPropagation} onClickLogin={onClickLogin}/>
+                showSignUp && <SignUp stopPropagation={stopPropagation} onClickLogin={onClickLogin} setShowSignUp={setShowSignUp}/>
             }
 
             {
                 showUserInfo && <UserInfo stopPropagation={stopPropagation} removeCookie={removeCookie} 
                                           setShowUserInfo={setShowUserInfo} userData={userData} setLoginData={setLoginData}/>
             }
+            
+            
              <Component {...pageProps} />
         </Section>
           

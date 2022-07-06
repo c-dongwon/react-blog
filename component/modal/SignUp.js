@@ -1,12 +1,12 @@
 import React, {useCallback, useState} from 'react';
-import { LayerForm, LoginBtn, ImageView } from './style';
+import { LayerForm, LoginBtn, ImageView, CloseBtn } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
-import { BsCameraFill } from "react-icons/bs";
+import { BsCameraFill, BsXLg } from "react-icons/bs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import useInput from '../../hook/useInput'; 
 
-const SignUp = ({stopPropagation, onClickLogin}) => {
+const SignUp = ({stopPropagation, onClickLogin, setShowSignUp}) => {
     const [name, onChangeName, setName] = useInput();
     const [email, onChangeEmail, setEmail] = useInput();
     const [password, , setPassword] = useInput();
@@ -79,6 +79,8 @@ const SignUp = ({stopPropagation, onClickLogin}) => {
         <LayerForm onClick={stopPropagation}>
             <form onSubmit={onSubmitSignUp}  encType='multipart/form-data'>
             <h2>회원가입</h2>
+            <CloseBtn type="button" onClick={() => setShowSignUp(false)}><BsXLg/></CloseBtn>
+
             <button type='button' className='signUpBtn' onClick={onClickLogin}>회원이신가요? <span>로그인하기</span></button>
             <ImageView>
                 {

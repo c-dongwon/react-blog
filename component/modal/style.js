@@ -29,7 +29,17 @@ export const SignUpForm =styled.div`
     }
     }
 `
-
+export const CloseBtn = styled.button`
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background-color: transparent;
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    color:#222;
+    font-size: 15px;
+`
 export const LayerForm = styled.div`
     position: fixed;
     left:50%; 

@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import { LayerForm, LoginBtn, SignUpBtn, UserForm, LogOutBtn } from './style';
+import { LayerForm, LoginBtn, SignUpBtn, UserForm, LogOutBtn, CloseBtn } from './style';
+import { BsXLg } from "react-icons/bs";
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import useInput from '../../hook/useInput';
@@ -45,6 +46,7 @@ const Login = ({setLoginData, stopPropagation, setShowLogin, onClickSignUp}) => 
         <LayerForm onClick={stopPropagation}> 
             <form onSubmit={onSubmitLogin}>
                 <h2>로그인</h2>
+                <CloseBtn type="button" onClick={() => setShowLogin(false)}><BsXLg/></CloseBtn>
                 <button type='button' className='signUpBtn' onClick={onClickSignUp}>신규 사용자이신가요? <span>계정만들기</span></button>
                 <FloatingLabel
                     className="login-input">
