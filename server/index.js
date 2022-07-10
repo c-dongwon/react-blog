@@ -4,6 +4,7 @@ const port = 4000
 const cookieParser = require('cookie-parser');
 const config = require('./config/key')
 const { User } = require('./models/User');
+const { Board } = require('./models/Board');
 const mongoose = require('mongoose')
 const multer = require('multer');
 const {auth} = require('./middleware/auth') 
@@ -136,7 +137,23 @@ app.get('/api/logout', auth, (req, res) =>{
         })
 })
 
-  
+app.post('/api/board/:id', (req, res) =>{
+    const board = new Board({
+      title:req.body.title,
+      category:req.params.id,
+      content:req.body.content,
+      createdAt:req.body.createdAt
+    });
+   
+     
+        board.save((err, userInfo) =>{
+          if(err) return res.status(404).json({success:false,err});
+          return res.status(200).json({
+              success:true
+          })
+      });
+    
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

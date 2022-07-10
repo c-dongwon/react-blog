@@ -39,6 +39,7 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "mongoose-auto-increment": "^5.0.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "next": "^12.1.6",
