@@ -178,7 +178,7 @@ app.get('/api/board/category', async(req, res) =>{
 app.post('/api/board', (req, res) =>{
   const board = new Board({
     title:req.body.title,
-    category:req.params.category,
+    category:req.body.category,
     content:req.body.content,
     createdAt:req.body.createdAt
   });
