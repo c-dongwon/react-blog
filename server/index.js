@@ -191,21 +191,8 @@ app.post('/api/board', (req, res) =>{
   });    
 })
 
-app.get('/api/board/:id',(req, res) =>{
-  Board.findOne({category: req.params.id},(err, id) => {
-        console.log(id)
-        return res.status(200).send({
-          success: true,
-          title:id.title,
-          category:id.category,
-          content:id.content,
-          createdAt:id.createdAt
-        })
-  })
-})
-
-// app.get('/api/board/list',(req, res) =>{
-//   Board.findOne({},(err, id) => {
+// app.get('/api/board/:id',(req, res) =>{
+//   Board.findOne({category: req.params.id},(err, id) => {
 //         console.log(id)
 //         return res.status(200).send({
 //           success: true,
@@ -216,6 +203,16 @@ app.get('/api/board/:id',(req, res) =>{
 //         })
 //   })
 // })
+
+app.get('/api/board/list', async(req, res) =>{
+  try {
+    const accounts = await Board.find();
+    res.json(accounts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
