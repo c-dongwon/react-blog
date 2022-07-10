@@ -25,6 +25,10 @@ module.exports = {
         source: '/api/modfiy',//api request path
         destination: 'http://192.168.219.104:4000/api/modfiy',//목적 path
       },
+      {
+        source: '/api/board/category',//api request path
+        destination: 'http://192.168.219.104:4000/api/board/category',//목적 path
+      },
     ]
   },
 }

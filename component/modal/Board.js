@@ -7,18 +7,28 @@ import useInput from '../../hook/useInput';
 import axios from 'axios';
 
 const Board = ({setShowBoard}) => {
-    const [email, onChangeEmail ,setEmail] = useInput();
-    const [password, onChangePassword ,setPassword] = useInput();
+    const [category, onChangeCategory ,setCategory] = useInput();
 
+    const onSubmit = useCallback((e) => {
+        e.preventDefault();
 
+        axios.post('/api/board/category',{
+            category:category
+        })
+        .then(res => {
+            setShowBoard(false)
+            setCategory("")
+        })
+
+    },[category]);
     return (
         <LayerForm> 
-            <form>
+            <form onSubmit={onSubmit}>
                 <h2>게시판생성</h2>
                 <CloseBtn type="button" onClick={() => setShowBoard(false)}><BsXLg/></CloseBtn>
                 <FloatingLabel
                     className="login-input">
-                    <Form.Control type="text" placeholder="게시판 이름" id="id" value={email || ""} onChange={onChangeEmail}/>
+                    <Form.Control type="text" placeholder="게시판 이름" id="id" value={category || ""} onChange={onChangeCategory}/>
                     <label htmlFor="id">게시판 이름</label>
                 </FloatingLabel>
         
