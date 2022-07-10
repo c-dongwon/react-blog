@@ -20,10 +20,9 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
     },[activeMenu])
     
     useEffect(() => {
-        axios.get("/api/board/list")
+        axios.get("/api/board/category")
         .then(res => {
             setCategoryList(res.data)
-            console.log(res.data)
         })
     },[])
     return (
