@@ -20,10 +20,10 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
     },[activeMenu])
     
     useEffect(() => {
-        axios.get("/api/board/category")
+        axios.get("/api/board/list")
         .then(res => {
             setCategoryList(res.data)
-            console.log(categoryList)
+            console.log(res.data)
         })
     },[])
     return (
@@ -43,7 +43,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
                     loginData ? <LoginAfter onClickUserInfo={onClickUserInfo} userData={userData}/> : <LoginBefore onClickLogin={onClickLogin}/>
                 }
                 <MenuList>
-                    {
+                     {
                         categoryList?.map(item => 
                             <li key={item.id}>
                                 <button type='button' onClick={() => toggleBtn(item.id)} className={item.id === activeMenu ? "active" : ""}>{item.category}{item.id === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
@@ -71,7 +71,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
                                 </ul>
                             </li>
                         )
-                    }
+                    } 
                     {/* <li>
                         <button type='button' onClick={() => toggleBtn(1)} className={1 === activeMenu ? "active" : ""}>React{1 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
                         <ul className={1 === activeMenu ? "active" : ""}>
