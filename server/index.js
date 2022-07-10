@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const config = require('./config/key')
 const { User } = require('./models/User');
 const { Board } = require('./models/Board');
+const { Category } = require('./models/Category');
 const mongoose = require('mongoose')
 const multer = require('multer');
 const {auth} = require('./middleware/auth') 
@@ -137,24 +138,84 @@ app.get('/api/logout', auth, (req, res) =>{
         })
 })
 
-app.post('/api/board/:id', (req, res) =>{
-    const board = new Board({
-      title:req.body.title,
-      category:req.params.id,
-      content:req.body.content,
-      createdAt:req.body.createdAt
-    });
-   
-     
-        board.save((err, userInfo) =>{
-          if(err) return res.status(404).json({success:false,err});
-          return res.status(200).json({
-              success:true
-          })
-      });
-    
+// app.post('/api/board/:id', (req, res) =>{
+//     const board = new Board({
+//       title:req.body.title,
+//       category:req.params.id,
+//       content:req.body.content,
+//       createdAt:req.body.createdAt
+//     });
+        
+//     board.save((err, userInfo) =>{
+//       if(err) return res.status(404).json({success:false,err});
+//         return res.status(200).json({
+//             success:true
+//       })
+//     });    
+// })
+app.post('/api/board/category', (req, res) =>{
+  const category = new Category({
+    category:req.body.category,
+  });
+      
+  category.save((err, userInfo) =>{
+    if(err) return res.status(404).json({success:false,err});
+      return res.status(200).json({
+          success:true
+    })
+  });    
 })
 
+app.get('/api/board/category', async(req, res) =>{
+  try {
+    const accounts = await Category.find();
+    res.json(accounts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+})
+
+app.post('/api/board', (req, res) =>{
+  const board = new Board({
+    title:req.body.title,
+    category:req.params.category,
+    content:req.body.content,
+    createdAt:req.body.createdAt
+  });
+      
+  board.save((err, userInfo) =>{
+    if(err) return res.status(404).json({success:false,err});
+      return res.status(200).json({
+          success:true
+    })
+  });    
+})
+
+app.get('/api/board/:id',(req, res) =>{
+  Board.findOne({category: req.params.id},(err, id) => {
+        console.log(id)
+        return res.status(200).send({
+          success: true,
+          title:id.title,
+          category:id.category,
+          content:id.content,
+          createdAt:id.createdAt
+        })
+  })
+})
+
+// app.get('/api/board/list',(req, res) =>{
+//   Board.findOne({},(err, id) => {
+//         console.log(id)
+//         return res.status(200).send({
+//           success: true,
+//           title:id.title,
+//           category:id.category,
+//           content:id.content,
+//           createdAt:id.createdAt
+//         })
+//   })
+// })
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
