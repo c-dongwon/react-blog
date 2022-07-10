@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import { SignUpForm, LogOutBtn, SignUpBtn, ImageView } from './style';
+import { SignUpForm, LogOutBtn, SignUpBtn, ImageView, CloseBtn } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
 import { BsCameraFill, BsXLg } from "react-icons/bs";
 import 'bootstrap/dist/css/bootstrap.min.css';

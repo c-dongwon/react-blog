@@ -2,6 +2,7 @@ import React, {useCallback, useState, useEffect} from 'react';
 import { BsClipboardPlus } from "react-icons/bs";
 import { Section } from './style';
 import Board from '../../component/modal/Board';
+import Edit from './edit';
 
 const Write = () => {
     const [showBoard, setShowBoard] = useState(false);
@@ -23,6 +24,11 @@ const Write = () => {
             {
               showBoard && <Board setShowBoard={setShowBoard}/>
             }
+            <Edit/>
+            <div className='btnWrap'>
+                <button type='submit'>작성</button>
+            </div>
+        
         </Section>
     );
 };

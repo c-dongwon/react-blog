@@ -11,6 +11,7 @@ export const SignUpForm =styled.div`
     padding:20px 15px;
     box-sizing: border-box;
     border-radius: 10px;
+    z-index: 3;
     form{
         margin: 0 15px;
     }
@@ -51,6 +52,7 @@ export const LayerForm = styled.div`
     padding:20px 15px;
     box-sizing: border-box;
     border-radius: 10px;
+    z-index: 3;
     h2{
         font-weight: 600;
         color:#000;

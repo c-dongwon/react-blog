@@ -36,6 +36,23 @@ export const Section = styled.section`
         height: 40px;
     }
     }
-
+    .quill {
+        margin-top: 30px;
+        min-height: 600px;
+    }
+    .ql-editor, .ql-container{
+        min-height: 560px;
+    }
+    .btnWrap{
+        margin-top: 30px;
+        text-align: center;
+        button{
+            width: 180px;
+            height: 45px;
+            border: 0;
+            background-color: #555;
+            color:#fff;
+        }
+    }
 `
 

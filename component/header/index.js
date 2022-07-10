@@ -19,7 +19,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
     return (
         <HeaderWrap>        
             <LeftMenu>
-                <h1>블로그</h1>
+                <h1>Untitled</h1>
                 <Link href="write">
                     <a>
                         <BsFillPencilFill/>
