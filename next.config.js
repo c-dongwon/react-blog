@@ -29,6 +29,14 @@ module.exports = {
         source: '/api/board/category',//api request path
         destination: 'http://192.168.219.104:4000/api/board/category',//목적 path
       },
+      {
+        source: '/api/board',//api request path
+        destination: 'http://192.168.219.104:4000/api/board',//목적 path
+      },
+      {
+        source: '/api/board/:id',//api request path
+        destination: 'http://192.168.219.104:4000/api/board/:id',//목적 path
+      },
     ]
   },
 }

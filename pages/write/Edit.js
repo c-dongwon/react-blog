@@ -42,7 +42,8 @@ const formats = [
   'image',
   'video',
 ]
-
-export default function Edit() {
-  return <QuillNoSSRWrapper modules={modules} formats={formats} theme="snow" />
+const Edit = ({content, onChangeContent}) => {
+  return <QuillNoSSRWrapper value={content || ""} onChange={onChangeContent} modules={modules} formats={formats} theme="snow" />
 }
+
+export default Edit
