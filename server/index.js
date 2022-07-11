@@ -166,7 +166,7 @@ app.post('/api/board/category', (req, res) =>{
   });    
 })
 
-app.get('c', async(req, res) =>{
+app.get('/api/board/category', async(req, res) =>{
   try {
     const accounts = await Category.find();
     res.json(accounts);
