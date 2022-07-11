@@ -9,30 +9,29 @@ import axios from 'axios';
 const Board = ({setShowBoard}) => {
     const [category, onChangeCategory ,setCategory] = useInput();
 
-    const onSubmit = useCallback((e) => {
+    const onSubmitBoard = useCallback((e) => {
         e.preventDefault();
-
-        axios.post('/api/board/category',{
+        axios.post("/api/board/category",{
             category:category
         })
+       
         .then(res => {
             setShowBoard(false)
             setCategory("")
         })
 
     },[category]);
+    
     return (
         <LayerForm> 
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmitBoard}>
                 <h2>게시판생성</h2>
-                <CloseBtn type="button" onClick={() => setShowBoard(false)}><BsXLg/></CloseBtn>
+                <CloseBtn type="button" onClick={() => setShowBoard(false)}><BsXLg/></CloseBtn> 
                 <FloatingLabel
                     className="login-input">
                     <Form.Control type="text" placeholder="게시판 이름" id="id" value={category || ""} onChange={onChangeCategory}/>
                     <label htmlFor="id">게시판 이름</label>
                 </FloatingLabel>
-        
-            
                 <LoginBtn type='submit'>
                     생성
                 </LoginBtn>

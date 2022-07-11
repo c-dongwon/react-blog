@@ -10,26 +10,38 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
     const [activeMenu, setActiveMenu] = useState(0);
     const [categoryList, setCategoryList] = useState();
     const [menuList, setMenuList] = useState();
-
+   
+    const list = [];
     const toggleBtn = useCallback((idx) => {
         if(activeMenu !== idx){
             setActiveMenu(idx)
         }else{
-            setActiveMenu(0)
+            setActiveMenu(null)
         }
     },[activeMenu])
     
     useEffect(() => {
         axios.get("/api/board/list")
         .then(res => {
+            setMenuList(res.data)
+        })
+
+        axios.get("/api/board/category")
+        .then(res => {
             setCategoryList(res.data)
         })
     },[])
+
+   
+    for(let i = 0; i < categoryList?.length; i++){
+        list.push(menuList?.filter(item => item.category === categoryList[i].category))
+    }
+ 
     return (
         <HeaderWrap>        
             <LeftMenu>
                 <h1>Untitled</h1>
-                <Link href="write">
+                <Link href="/write">
                     <a>
                         <BsFillPencilFill/>
                     </a>
@@ -42,101 +54,40 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
                     loginData ? <LoginAfter onClickUserInfo={onClickUserInfo} userData={userData}/> : <LoginBefore onClickLogin={onClickLogin}/>
                 }
                 <MenuList>
-                     {
-                        categoryList?.map(item => 
-                            <li key={item.id}>
-                                <button type='button' onClick={() => toggleBtn(item.id)} className={item.id === activeMenu ? "active" : ""}>{item.category}{item.id === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
-                                <ul className={item.id === activeMenu ? "active" : ""}>
-                                    <li>
-                                        <Link href="#">
-                                            <a>-useState</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="#">
-                                            <a>-useEffect</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="#">
-                                            <a>-useState</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="#">
-                                            <a>-useEffect</a>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-                        )
-                    } 
-                    {/* <li>
-                        <button type='button' onClick={() => toggleBtn(1)} className={1 === activeMenu ? "active" : ""}>React{1 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
-                        <ul className={1 === activeMenu ? "active" : ""}>
-                            <li>
-                                <Link href="#">
-                                    <a>-useState</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a>-useEffect</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a>-useState</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a>-useEffect</a>
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>    
-                    <li>
-                    <button type='button' onClick={() => toggleBtn(2)}  className={2 === activeMenu ? "active" : ""}>JavaScript{2 === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
-                        <ul className={2 === activeMenu ? "active" : ""}>
-                            <li>
-                                <Link href="#">
-                                    <a>-Map</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a>-For</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a>-If Else</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a>-filter</a>
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>  */}
+                    {
+                        list?.map((item, idx) => 
+                            <li key={idx}>
+                                 <button type='button' onClick={() => toggleBtn(idx)} className={idx === activeMenu ? "active" : ""}>{item[0]?.category}{idx === activeMenu ? <BsChevronDown/> : <BsChevronUp/>}</button>
+                                 <ul className={idx === activeMenu ? "active" : ""}>
+                                    {
+                                        item.map((list, idx) =>
+                                            <li key={idx}>
+                                                <Link href="/123">
+                                                    <a>{list.title}</a>
+                                                </Link>
+                                            </li>
+                                            )
+                                    } 
+                                 </ul>
+                            </li>)
+                    }
+                
                 </MenuList>    
                 <MenuList>
                     <li>
-                        <Link href="#">
+                        <Link href="/123">
                             <a>사람들 ./ Community <BsChevronRight/></a>
                         </Link>
                     </li>    
                     <li>
-                        <Link href="#">
+                        <Link href="/123">
                             <a>정보 ./ My page <BsChevronRight/></a>
                         </Link>
                     </li>    
                 </MenuList>  
                 <MenuList>
                     <li>
-                        <Link href="#">
+                        <Link href="/123">
                             <a>문의 및 수정요청 <BsChevronRight/></a>
                         </Link>
                     </li>    

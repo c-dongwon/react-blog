@@ -42,7 +42,6 @@ const Write = () => {
         .then(res => setCategoryList(res.data))
     },[showBoard]);
 
-    console.log(content)
     return (
         <Section>
             <form onSubmit={onSubmitWrite}>
