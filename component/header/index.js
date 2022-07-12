@@ -62,7 +62,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
                                     {
                                         item.map((list, idx) =>
                                             <li key={idx}>
-                                                <Link href={`/view/`}>
+                                                <Link href="view" as={`view/${list.id}`}>
                                                     <a>{list.title}</a>
                                                 </Link>
                                             </li>

@@ -1,7 +1,11 @@
+import axios from 'axios';
 import React from 'react';
+import { useEffect } from 'react';
 import { Section, ViewTop, Content } from './style';
-
 const View = () => {
+    useEffect(() => {
+        axios.get()
+    },[])
     return (
         <Section>
             <ViewTop>
@@ -38,7 +42,7 @@ const View = () => {
                 <p>내용이들어가는곳</p>
                 <p>내용이들어가는곳</p>
                 <p>내용이들어가는곳</p><p>내용이들어가는곳</p>
-                
+
             </Content>
         </Section>
     );
