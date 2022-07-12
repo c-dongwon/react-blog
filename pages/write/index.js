@@ -57,14 +57,14 @@ const Write = () => {
                     </select>
                     <button type='button' onClick={onClickBoard}><BsClipboardPlus/></button>
                 </div>
-                {
-                showBoard && <Board setShowBoard={setShowBoard}/>
-                }
                 <Edit content={content} onChangeContent={onChangeContent}/>
                 <div className='btnWrap'>
                     <button type='submit'>작성</button>
                 </div>
             </form>
+            {
+                showBoard && <Board setShowBoard={setShowBoard}/>
+            }
         </Section>
     );
 };

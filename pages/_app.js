@@ -13,8 +13,6 @@ import UserInfo from '../component/modal/UserInfo';
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
 
-
-
 const theme = {
   colors: {
     primary: '#0070f3',
