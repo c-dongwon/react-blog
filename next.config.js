@@ -37,6 +37,10 @@ module.exports = {
         source: '/api/board/:id',//api request path
         destination: 'http://192.168.219.104:4000/api/board/:id',//목적 path
       },
+      {
+        source: '/api/view/:id',//api request path
+        destination: 'http://192.168.219.104:4000/api/view/:id',//목적 path
+      },
     ]
   },
 }

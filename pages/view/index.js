@@ -1,10 +1,17 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Section, ViewTop, Content } from './style';
 const View = () => {
+    const [view, setView] = useState();
+
     useEffect(() => {
-        axios.get()
+        const params = new URLSearchParams(location.search);
+
+        let id = params.get("id");
+        
+        axios.get(`/api/view/${id}`)
+        .then(res => setView(res))
     },[])
     return (
         <Section>

@@ -9,7 +9,7 @@ import axios from 'axios';
 const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClickUserInfo}) => {
     const [activeMenu, setActiveMenu] = useState(0);
     const [categoryList, setCategoryList] = useState();
-    const [menuList, setMenuList] = useState();
+    const [menuList, setMenuList] = useState([]);
    
     const list = [];
     const toggleBtn = useCallback((idx) => {

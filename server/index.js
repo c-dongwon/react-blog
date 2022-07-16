@@ -191,17 +191,17 @@ app.post('/api/board', (req, res) =>{
   });    
 })
 
-// app.get('/api/board/:id',(req, res) =>{
-//   Board.findOne({category: req.params.id},(err, id) => {
-//         return res.status(200).send({
-//           success: true,
-//           title:id.title,
-//           category:id.category,
-//           content:id.content,
-//           createdAt:id.createdAt
-//         })
-//   })
-// })
+app.get('/api/view/:id',(req, res) =>{
+  Board.findOne({id: req.params.id},(err, id) => {
+        return res.status(200).send({
+          success: true,
+          title:id.title,
+          category:id.category,
+          content:id.content,
+          createdAt:id.createdAt
+        })
+  })
+})
 
 app.get('/api/board/list', async(req, res) =>{
   try {
