@@ -5,6 +5,7 @@ import { BsCameraFill, BsXLg } from "react-icons/bs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import useInput from '../../hook/useInput';
+import Link from 'next/link'
 
 const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, setShowUserInfo,userData}) => {
     const [name, onChangeName, setName] = useInput("");
@@ -81,6 +82,9 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
                     <label htmlFor="name">Name</label>
                 </FloatingLabel>
                 <SignUpBtn type='submit'>변경</SignUpBtn>
+                <Link href="/write">
+                <SignUpBtn type='submit'>글쓰기</SignUpBtn>
+                </Link>
                 <LogOutBtn onClick={onSubmitLogout}>로그아웃</LogOutBtn>
             </form>
         </SignUpForm>

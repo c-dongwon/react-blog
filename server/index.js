@@ -9,10 +9,18 @@ const { Category } = require('./models/Category');
 const mongoose = require('mongoose')
 const multer = require('multer');
 const {auth} = require('./middleware/auth') 
+const cors = require('cors');
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
+
+let corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+}
+
+app.use(cors(corsOptions));
 
 mongoose.connect(config.mongoURI)
 

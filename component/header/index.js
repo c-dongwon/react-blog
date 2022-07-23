@@ -41,11 +41,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
         <HeaderWrap>        
             <LeftMenu>
                 <h1>Untitled</h1>
-                <Link href="/write">
-                    <a>
-                        <BsFillPencilFill/>
-                    </a>
-                </Link>
+        
                 <SearchWrap>
                     <input type="text" placeholder='검색'/>
                     <button><BsSearch/></button>
@@ -62,7 +58,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
                                     {
                                         item.map((list, idx) =>
                                             <li key={idx}>
-                                                <Link href="view" as={`view/${list.id}`}>
+                                                <Link href="/view/[id]" as={`/view/${list.id}`}>
                                                     <a>{list.title}</a>
                                                 </Link>
                                             </li>
