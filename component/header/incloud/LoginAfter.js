@@ -7,7 +7,7 @@ const LoginAfter = ({onClickUserInfo, userData}) => {
         <MyInfo onClick={onClickUserInfo}>
             <div className="imgWrap"> 
             {
-                userData ? <img src={userData.file} alt="" /> : <img src="img/sample.png" alt="" />
+                userData?.file ? <img src={userData.file} alt="" /> : <img src="img/sample.png" alt="" />
             }                     
             </div>
             <div className='infoWrap'>

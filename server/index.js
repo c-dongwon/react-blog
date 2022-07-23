@@ -146,21 +146,6 @@ app.get('/api/logout', auth, (req, res) =>{
         })
 })
 
-// app.post('/api/board/:id', (req, res) =>{
-//     const board = new Board({
-//       title:req.body.title,
-//       category:req.params.id,
-//       content:req.body.content,
-//       createdAt:req.body.createdAt
-//     });
-        
-//     board.save((err, userInfo) =>{
-//       if(err) return res.status(404).json({success:false,err});
-//         return res.status(200).json({
-//             success:true
-//       })
-//     });    
-// })
 app.post('/api/board/category', (req, res) =>{
   const category = new Category({
     category:req.body.category,
@@ -200,13 +185,25 @@ app.post('/api/board', (req, res) =>{
 })
 
 app.get('/api/view/:id',(req, res) =>{
-  Board.findOne({id: req.params.id},(err, id) => {
+  Board.findOne({id: req.params.id},(err, data) => {
         return res.status(200).send({
-          success: true,
-          title:id.title,
-          category:id.category,
-          content:id.content,
-          createdAt:id.createdAt
+          // title:id.title,
+          // category:id.category,
+          // content:id.content,
+          // createdAt:id.createdAt
+          data
+        })
+  })
+})
+
+app.get('/api/search=:text',(req, res) =>{
+  Board.findOne({text: req.params.title},(err, data) => {
+        return res.status(200).send({
+          // title:id.title,
+          // category:id.category,
+          // content:id.content,
+          // createdAt:id.createdAt
+          data
         })
   })
 })

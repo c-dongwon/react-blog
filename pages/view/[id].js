@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Section, ViewTop, Content } from './style';
 import { useRouter } from 'next/router'
+import Moment from 'react-moment';
 
 const View = () => {
     const [view, setView] = useState();
@@ -11,46 +12,19 @@ const View = () => {
 
     useEffect(() => {
         axios.get(`/api/view/${id}`)
-        .then(res => setView(res.data))
-    },[id])
-    console.log(view)
+        .then(res => setView(res.data.data))
+    },[id]);
+
     return (
         <Section>
             <ViewTop>
-                 <h2><span>{view.category}</span>{view.title}</h2>
-                 <span>2022.07.12</span>
+                 <h2><span>{view?.category}</span>{view?.title}</h2>
+                 <Moment format="YYYY.MM.DD">
+                    {view?.createdAt}
+                </Moment>
             </ViewTop>
-            <Content>
-                <p>내용이들어가는곳~~~~~~~~~~~~~~~~내용이들어가는곳~~~~~~~~~~~~~~~~내용이들어가는곳~~~~~~~~~~~~~~~~</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p>
-                <p>내용이들어가는곳</p><p>내용이들어가는곳</p>
-
+            <Content dangerouslySetInnerHTML={{ __html: view?.content}}>
+            
             </Content>
         </Section>
     );

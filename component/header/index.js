@@ -40,7 +40,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
     return (
         <HeaderWrap>        
             <LeftMenu>
-                <h1>Untitled</h1>
+                <h1>Front Start</h1>
         
                 <SearchWrap>
                     <input type="text" placeholder='검색'/>
@@ -69,7 +69,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
                     }
                 
                 </MenuList>    
-                <MenuList>
+                {/* <MenuList>
                     <li>
                         <Link href="/123">
                             <a>사람들 ./ Community <BsChevronRight/></a>
@@ -80,7 +80,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
                             <a>정보 ./ My page <BsChevronRight/></a>
                         </Link>
                     </li>    
-                </MenuList>  
+                </MenuList>   */}
                 <MenuList>
                     <li>
                         <Link href="/123">
