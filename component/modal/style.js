@@ -191,3 +191,116 @@ export const ImageView = styled.div`
         max-width: 100%;
     }
 `
+export const ChatBox = styled.div`
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ddd;
+    .top{
+        h2{
+            text-align: center;
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            div{
+                width: 30px;
+                height:30px;
+                border-radius: 50%;
+                background-color: #b9b9b9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto;
+                svg{
+                    font-size: 23px;
+                    color: #fff;
+                }
+            }
+            span{
+                    display: inline-block;
+                    margin-top: 5px;
+                    font-weight: 500;
+                }
+        }
+        button{
+            top: 10px;
+        }
+    }
+    .content{
+        width: 400px;
+        height: calc(100% - 100px);
+        box-sizing: border-box;
+        padding: 10px;
+        div{
+            min-height: 20px;
+            line-height: 1.3;
+            height: auto;
+            p{
+                padding: 7px;
+                font-size: 14px;
+                font-weight: 400;
+                border-radius: 10px;
+                box-sizing: border-box;
+                max-width: 60%;
+            }
+        }
+        .left{
+            display: flex;
+            justify-content: left;
+            
+            p{
+                display: inline-block;
+                background-color: #f5f5f5;
+                color:#222
+            }
+        }
+        .right{
+            display: flex;
+            justify-content: right;
+            p{
+                display: inline-block;
+                background-color: #1276E1;
+                color:#fff
+            }
+        }
+    
+    }
+    .bottom{
+        position: absolute;
+        bottom: 5px;
+        height: 40px;
+        width: 380px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        left:10px;
+        padding: 10px;
+        z-index: 1;
+        textarea{
+            height: 30px!important;
+            resize: none;
+            z-index: -1;
+            box-sizing: border-box;
+            width: 340px;
+            position: absolute;
+            border: 0;
+            bottom: 5px;
+        
+        }
+        button{
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border: 0;
+            background-color: transparent;
+            z-index: 0;
+            svg{
+                width: 30px;
+                height: 30px;
+                color:#1276E1;
+            }
+        }
+    }
+`

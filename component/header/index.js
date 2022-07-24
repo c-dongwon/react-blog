@@ -6,7 +6,7 @@ import LoginAfter from './incloud/LoginAfter';
 import LoginBefore from './incloud/LoginBefore';
 import axios from 'axios';
 
-const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClickUserInfo}) => {
+const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClickUserInfo, onClickChat}) => {
     const [activeMenu, setActiveMenu] = useState(0);
     const [categoryList, setCategoryList] = useState();
     const [menuList, setMenuList] = useState([]);
@@ -40,7 +40,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
     return (
         <HeaderWrap>        
             <LeftMenu>
-                <h1>Airplanes, Part II</h1>
+                <h1>무제.</h1>
         
                 <SearchWrap>
                     <input type="text" placeholder='검색'/>
@@ -83,9 +83,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
                 </MenuList>   */}
                 <MenuList>
                     <li>
-                        <Link href="/123">
-                            <a>문의 및 수정요청 <BsChevronRight/></a>
-                        </Link>
+                        <button onClick={onClickChat}>문의 및 수정요청 <BsChevronRight/></button>
                     </li>    
                     <FlexLi>
                         <h3>{isDarkMode ? "라이트 모드" : "다크 모드"}</h3>

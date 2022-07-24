@@ -9,6 +9,7 @@ import Login from '../component/modal/Login';
 import SignUp from '../component/modal/SignUp';
 import { withCookies, useCookies } from 'react-cookie';
 import UserInfo from '../component/modal/UserInfo';
+import Chat from '../component/modal/Chat';
 
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
@@ -24,6 +25,7 @@ const App = ({ Component, pageProps }) => {
     const [showLogin, setShowLogin] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
     const [showUserInfo, setShowUserInfo] = useState(false);
+    const [showChat, setShowChat] = useState(false);
     const [cookies, removeCookie] = useCookies([ 'user' ]);  
     const [hasCookie, setHasCookie] = useState(false);
     const [userData,  setUserData] = useState();
@@ -63,7 +65,10 @@ const App = ({ Component, pageProps }) => {
         e.stopPropagation();
     },[showSignUp]);
 
- 
+    const onClickChat= useCallback((e) => {
+      setShowChat(prev => !prev);
+      e.stopPropagation();
+  },[showChat]);
 
     //modal close 함수
     const onCloseModal = useCallback(() => {
@@ -95,7 +100,8 @@ const App = ({ Component, pageProps }) => {
        
             <Header darkMod={darkMod} isDarkMode={isDarkMode} 
                     userData={userData} loginData={loginData} 
-                    onClickLogin={onClickLogin} onClickUserInfo={onClickUserInfo}/>
+                    onClickLogin={onClickLogin} onClickUserInfo={onClickUserInfo}
+                    onClickChat={onClickChat}/>
             {
                 showLogin && <Login setLoginData={setLoginData} stopPropagation={stopPropagation} 
                                     setShowLogin={setShowLogin} onClickSignUp={onClickSignUp}/>
@@ -109,7 +115,10 @@ const App = ({ Component, pageProps }) => {
                 showUserInfo && <UserInfo stopPropagation={stopPropagation} removeCookie={removeCookie} 
                                           setShowUserInfo={setShowUserInfo} userData={userData} setLoginData={setLoginData}/>
             }
-            
+              {
+                showChat && <Chat stopPropagation={stopPropagation}
+                                          setShowChat={setShowChat} />
+            }
             
              <Component {...pageProps} />
         </Section>
