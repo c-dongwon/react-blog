@@ -13,10 +13,9 @@ const Write = () => {
     const [content, setContent] = useState();
     const [selected, setSelected] = useState("");
 
-    const onChangeContent = (value) => {
+    const onChangeContent = (value) => {   
         setContent(value);
-      };
-
+    }
     const handleSelect = useCallback((e) => {
         setSelected(e.target.value);
         console.log(selected)
@@ -50,7 +49,7 @@ const Write = () => {
                     <select onChange={handleSelect} value={selected}>
                         <option>게시판 선택</option>
                         {
-                            categoryList?.map(item =>
+                            categoryList?.map((item,index) =>
                                 <option value={item.category} key={item}>{item.category}</option>
                                 )
                         }

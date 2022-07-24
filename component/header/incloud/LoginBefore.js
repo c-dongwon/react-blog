@@ -7,7 +7,7 @@ const LoginAfter = ({onClickLogin}) => {
     return (
         <MyInfo onClick={onClickLogin}>
              <div className="imgWrap">                      
-                   <img src="img/sample.png" alt="" />
+                   <img src="/img/img-sample.gif" alt="" />
               </div>
               <div className='infoWrap'>
                   <h3>로그인이 필요합니다.</h3>                 

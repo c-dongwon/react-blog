@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import { SignUpForm, LogOutBtn, SignUpBtn, ImageView, CloseBtn } from './style';
+import { SignUpForm, LogOutBtn, SignUpBtn, ImageView, CloseBtn, WriteBtn } from './style';
 import { FloatingLabel, Form, Control } from 'react-bootstrap';
 import { BsCameraFill, BsXLg } from "react-icons/bs";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -83,7 +83,7 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
                 </FloatingLabel>
                 <SignUpBtn type='submit'>변경</SignUpBtn>
                 <Link href="/write">
-                <SignUpBtn type='submit'>글쓰기</SignUpBtn>
+                    <WriteBtn type='submit' onClick={() => setShowUserInfo(false)}>글쓰기</WriteBtn>
                 </Link>
                 <LogOutBtn onClick={onSubmitLogout}>로그아웃</LogOutBtn>
             </form>

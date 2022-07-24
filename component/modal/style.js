@@ -30,6 +30,17 @@ export const SignUpForm =styled.div`
     }
     }
 `
+export const WriteBtn = styled.button`
+    height:30px;
+    background-color: #d1d1d1;
+    color:#fff;
+    border-radius: 5px;
+    border: 0;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+`
 export const CloseBtn = styled.button`
     width: 20px;
     height: 20px;
@@ -116,7 +127,7 @@ export const LoginBtn = styled.button`
     text-align: center;
     width: 100%;
     margin-top: 15px;
-    font-weight: 500;;
+    font-weight: 500;
 `
 export const SignUpBtn = styled.button`
     height:30px;

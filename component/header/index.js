@@ -40,7 +40,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
     return (
         <HeaderWrap>        
             <LeftMenu>
-                <h1>Front Start</h1>
+                <h1>Airplanes, Part II</h1>
         
                 <SearchWrap>
                     <input type="text" placeholder='검색'/>
