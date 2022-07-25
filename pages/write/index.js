@@ -1,8 +1,8 @@
 import React, {useCallback, useState, useEffect} from 'react';
+import dynamic from 'next/dynamic'
 import { BsClipboardPlus } from "react-icons/bs";
 import { Section } from './style';
 import Board from '../../component/modal/Board';
-import Edit from './edit';
 import axios from 'axios';
 import useInput from '../../hook/useInput';
 
@@ -41,6 +41,8 @@ const Write = () => {
         .then(res => setCategoryList(res.data))
     },[showBoard]);
 
+    const Edit = dynamic(()=> import('./edit'), { ssr : false } )
+    
     return (
         <Section>
             <form onSubmit={onSubmitWrite}>
