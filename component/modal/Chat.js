@@ -8,20 +8,28 @@ import { useCallback } from 'react';
 const Chat = ({setShowChat, stopPropagation, userData}) => {
     const myInfo = {
         roomName: "Test",
-        userName: "Test",
+        userName: userData?.name,
     };
 
     const [currentSocket, setCurrentSocket] = useState();
     const [msgList, setMsgList] = useState([]);
     const [chatMessage, setChatMessage] = useState("");
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         currentSocket?.emit("onSend", {
-            userName: "test",
+            userName: userData?.name,
+            msg: chatMessage,
+            userId:userData?.email,
+            timeStamp: new Date().toLocaleTimeString()
+        });
+        /*let newMsg = {
+            userName: userData?.name,
             msg: chatMessage,
             timeStamp: new Date().toLocaleTimeString(),
-        });
+        }
+        setMsgList([...msgList, newMsg])*/
         setChatMessage("");
     };
 
@@ -45,19 +53,19 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
             console.log(messageItem);
         });
 
-        currentSocket?.on("onConnect", (systemMessage) => {
+     /*   currentSocket?.on("onConnect", (systemMessage) => {
             setMsgList((msgList) => [...msgList, { msg: systemMessage }]);
         });
 
         currentSocket?.on("onDisconnect", (systemMessage) => {
             setMsgList((msgList) => [...msgList, { msg: systemMessage }]);
         });
-
+*/
         return () => {
             currentSocket?.disconnect();
         };
     }, [currentSocket]);
-
+    console.log(msgList)
     return (
         <ChatBox onClick={stopPropagation}>
             <form onSubmit={handleSubmit}>
