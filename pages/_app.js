@@ -117,7 +117,7 @@ const App = ({ Component, pageProps }) => {
             }
               {
                 showChat && <Chat stopPropagation={stopPropagation}
-                                          setShowChat={setShowChat} />
+                                          setShowChat={setShowChat} userData={userData}/>
             }
             
              <Component {...pageProps} />

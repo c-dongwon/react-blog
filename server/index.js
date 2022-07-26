@@ -1,36 +1,29 @@
-const express = require('express')
-const app = express()
-const port = 4000
+const express = require('express');
+const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const config = require('./config/key')
+const multer = require('multer');
+const config = require('./config/key');
 const { User } = require('./models/User');
 const { Board } = require('./models/Board');
 const { Category } = require('./models/Category');
-const mongoose = require('mongoose')
-const multer = require('multer');
-const {auth} = require('./middleware/auth') 
-const cors = require('cors');
+const {auth} = require('./middleware/auth')
+const http = require("http");
+const socketIO = require("socket.io");
+const cors = require("cors");
+const app = express()
+const port = 4000
+
+app.use(cors());
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
 
-let corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true
-}
-
-app.use(cors(corsOptions));
-
 mongoose.connect(config.mongoURI)
-
 
 .then((res) => console.log("ok!"))
 .catch((error) => console.log(error))
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -42,6 +35,35 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
+
+const server = http.createServer(app);
+
+const io = socketIO(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["*"],
+        credentials: true,
+    },
+});
+
+io.on("connection", (socket) => {
+    // join : 채팅 참여 이벤트
+    socket.on("join", ({ roomName: room, userName: user }) => {
+        socket.join(room);
+        //io.to(room).emit("onConnect", `${user} 님이 입장했습니다.`);
+        // send : 클라이언트가 메시지 보내는 이벤트
+        // item: {name: String, msg: String, timeStamp: String}
+        socket.on("onSend", (messageItem) => {
+            io.to(room).emit("onReceive", messageItem);
+        });
+
+       /* socket.on("disconnect", () => {
+            socket.leave(room);
+            io.to(room).emit("onDisconnect", `${user} 님이 퇴장하셨습니다.`);
+        });*/
+    });
+});
 
 app.post('/api/signup', upload.single('file'), (req, res) =>{
   const url = req.protocol + '://' + req.get('host')
@@ -187,22 +209,6 @@ app.post('/api/board', (req, res) =>{
 app.get('/api/view/:id',(req, res) =>{
   Board.findOne({id: req.params.id},(err, data) => {
         return res.status(200).send({
-          // title:id.title,
-          // category:id.category,
-          // content:id.content,
-          // createdAt:id.createdAt
-          data
-        })
-  })
-})
-
-app.get('/api/search=:text',(req, res) =>{
-  Board.findOne({text: req.params.title},(err, data) => {
-        return res.status(200).send({
-          // title:id.title,
-          // category:id.category,
-          // content:id.content,
-          // createdAt:id.createdAt
           data
         })
   })
@@ -217,6 +223,6 @@ app.get('/api/board/list', async(req, res) =>{
   }
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

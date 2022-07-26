@@ -232,18 +232,42 @@ export const ChatBox = styled.div`
         height: calc(100% - 100px);
         box-sizing: border-box;
         padding: 10px;
-        div{
+       & > div{
             min-height: 20px;
             line-height: 1.3;
             height: auto;
-            p{
-                padding: 7px;
-                font-size: 14px;
-                font-weight: 400;
-                border-radius: 10px;
-                box-sizing: border-box;
-                max-width: 60%;
+            display: flex;
+             width: 100%;
+         .chatBox{
+           flex-grow: 1;
+           span{
+             display: block;
+             font-size: 13px;
+           }
+           p{
+             padding: 7px;
+             font-size: 14px;
+             font-weight: 400;
+             border-radius: 10px;
+             box-sizing: border-box;
+             max-width: 60%;
+           }
+         }
+        
+          .prfileImg{
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #b9b9b9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+            svg{
+              color: #fff;
+              font-size: 23px;
             }
+          }
         }
         .left{
             display: flex;
@@ -258,11 +282,15 @@ export const ChatBox = styled.div`
         .right{
             display: flex;
             justify-content: right;
+            text-align: right;
             p{
                 display: inline-block;
                 background-color: #1276E1;
-                color:#fff
+                color:#fff;
             }
+          .chatBox{
+            margin-right: 5px;
+          }
         }
     
     }
