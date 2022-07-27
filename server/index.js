@@ -6,6 +6,7 @@ const config = require('./config/key');
 const { User } = require('./models/User');
 const { Board } = require('./models/Board');
 const { Category } = require('./models/Category');
+const { Chat } = require('./models/Chat');
 const {auth} = require('./middleware/auth')
 const http = require("http");
 const socketIO = require("socket.io");
@@ -52,10 +53,28 @@ io.on("connection", (socket) => {
         socket.join(room);
         socket.on("onSend", (messageItem) => {
             io.to(room).emit("onReceive", messageItem);
+            const chat = new Chat({
+                msg:messageItem.msg,
+                timeStamp:messageItem.timeStamp,
+                userId:messageItem.userId,
+                userName:messageItem.userName
+            });
+            chat.save((err, data) =>{
+                if(err){
+                    console.log(err)
+                }
+            });
         });
     });
 });
-
+app.get('/api/chatlist', async(req, res) =>{
+    try {
+        const chatList = await Chat.find();
+        res.json(chatList);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+})
 app.post('/api/signup', upload.single('file'), (req, res) =>{
   const url = req.protocol + '://' + req.get('host')
   let fileItme = null;

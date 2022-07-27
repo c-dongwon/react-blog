@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import socketIOClient from "socket.io-client";
 import { ChatBox, CloseBtn } from './style';
 import { BsCameraFill, BsXLg, BsFillArrowUpCircleFill, BsFillPersonFill } from "react-icons/bs";
 import useInput from '../../hook/useInput';
 import { useCallback } from 'react';
+import axios from "axios";
 
 const Chat = ({setShowChat, stopPropagation, userData}) => {
     const myInfo = {
@@ -14,7 +15,9 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
     const [currentSocket, setCurrentSocket] = useState();
     const [msgList, setMsgList] = useState([]);
     const [chatMessage, setChatMessage] = useState("");
-
+    const [msgRecord, setMsgRecord] = useState([]);
+    const chatRef = useRef(null);
+    let chatList = [];
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,12 +27,6 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
             userId:userData?.email,
             timeStamp: new Date().toLocaleTimeString()
         });
-        /*let newMsg = {
-            userName: userData?.name,
-            msg: chatMessage,
-            timeStamp: new Date().toLocaleTimeString(),
-        }
-        setMsgList([...msgList, newMsg])*/
         setChatMessage("");
     };
 
@@ -37,9 +34,6 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
         setChatMessage(e.target.value);
     };
 
-    useEffect(() => {
-        setCurrentSocket(socketIOClient("localhost:4000"));
-    }, []);
 
     if (currentSocket) {
         currentSocket?.on("connect", () => {
@@ -48,24 +42,27 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
     }
 
     useEffect(() => {
+        setCurrentSocket(socketIOClient("localhost:4000"));
+    }, []);
+
+    useEffect(() => {
+        axios.get("/api/chatlist")
+            .then(res => {
+                setMsgRecord(res.data)
+            })
+
+    },[msgList])
+
+    useEffect(() => {
+        chatRef.current.scrollTo({top: chatRef.current.scrollHeight, behavior: 'smooth'})
+    },[msgRecord])
+
+    useEffect(() => {
         currentSocket?.on("onReceive", (messageItem) => {
             setMsgList((msgList) => [...msgList, messageItem]);
-            console.log(messageItem);
         });
-
-     /*   currentSocket?.on("onConnect", (systemMessage) => {
-            setMsgList((msgList) => [...msgList, { msg: systemMessage }]);
-        });
-
-        currentSocket?.on("onDisconnect", (systemMessage) => {
-            setMsgList((msgList) => [...msgList, { msg: systemMessage }]);
-        });
-*/
-        return () => {
-            currentSocket?.disconnect();
-        };
     }, [currentSocket]);
-    console.log(msgList)
+
     return (
         <ChatBox onClick={stopPropagation}>
             <form onSubmit={handleSubmit}>
@@ -76,41 +73,30 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
                 </h2>
                 <CloseBtn type="button" onClick={() => setShowChat(false)}><BsXLg/></CloseBtn>
             </div>
-            <div className='content'>
-                {msgList.map((msg, idx) => (
-                    <div className='left' key={idx}>
-                        <div className="prfileImg">
-                            <BsFillPersonFill/>
-                        </div>
+            <div className='content' ref={chatRef}>
+                {msgRecord.map((msg, idx) => (
+                    msg.userId === userData.email ?
+                    <div className="right" key={idx}>
                         <div className="chatBox">
-                            <span>{msg.userName}</span>
                             <p>{msg.msg}</p>
                         </div>
                     </div>
+                        :
+                        <div className="left" key={idx}>
+                            <div className="prfileImg">
+                                <BsFillPersonFill/>
+                            </div>
+                            <div className="chatBox">
+                                <span>{msg.userName}</span>
+                                <p>{msg.msg}</p>
+                            </div>
+                        </div>
                 ))}
-                {/*<div className='left'>
-                    <div className="prfileImg">
-                        <BsFillPersonFill/>
-                    </div>
-                    <div className="chatBox">
-                        <span>관리자</span>
-                        <p>안녕 ㅋㅋ</p>
-                    </div>
-                </div>*/}
-                <div className='right'>
-                    <div className="chatBox">
-                        <span>나</span>
-                        <p>안녕 ㅋㅋ</p>
-                    </div>
-                    <div className="prfileImg">
-                        <BsFillPersonFill/>
-                    </div>
-                </div>
             </div>
             
             <div className='bottom'>
-                <textarea value={chatMessage} onChange={onChatMessageChange}></textarea>
-                <button type="submit"><BsFillArrowUpCircleFill/></button>
+                <input type="text" value={chatMessage} onChange={onChatMessageChange}/>
+                <button type="submit" className={chatMessage ? "" : "disabled"}><BsFillArrowUpCircleFill/></button>
             </div>
             </form>
         </ChatBox>

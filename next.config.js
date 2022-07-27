@@ -41,6 +41,10 @@ module.exports = {
         source: '/api/view/:id',//api request path
         destination: 'http://localhost:4000/api/view/:id',//목적 path
       },
+      {
+        source: '/api/chatlist',//api request path
+        destination: 'http://localhost:4000/api/chatlist',//목적 path
+      },
      /* {
         source: '/socket.io/:id',//api request path
         destination: 'http://localhost:4000/socket.io/:id',//목적 path
