@@ -21,6 +21,18 @@ const GlobalStyles = createGlobalStyle`
     }
     body{
         font-family: "Pretendard";
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 5px;
+        background-clip: padding-box;
+        border: 2px solid transparent;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
     }
     a{
         text-decoration: none;

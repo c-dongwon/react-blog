@@ -45,10 +45,10 @@ module.exports = {
         source: '/api/chatlist',//api request path
         destination: 'http://localhost:4000/api/chatlist',//목적 path
       },
-     /* {
-        source: '/socket.io/:id',//api request path
-        destination: 'http://localhost:4000/socket.io/:id',//목적 path
-      },*/
+      {
+        source: '/api/board/comment/:id',//api request path
+        destination: 'http://localhost:4000/api/board/comment/:id',//목적 path
+      },
     ]
   },
 }

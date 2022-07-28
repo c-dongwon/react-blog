@@ -277,7 +277,7 @@ export const ChatBox = styled.div`
       height: auto;
       display: flex;
       width: 100%;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       &:last-of-type{
         margin-bottom: 0;
       }

@@ -36,9 +36,13 @@ export const Section = styled.section`
         height: 40px;
     }
     }
-    .quill {
-        margin-top: 30px;
-        min-height: 600px;
+  .writeTop{
+    margin-bottom: 30px;
+  }
+    .toastui-editor {
+      .ProseMirror .placeholder{
+        color: transparent;
+      }
     }
     .ql-editor, .ql-container{
         min-height: 560px;

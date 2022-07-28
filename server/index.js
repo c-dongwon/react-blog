@@ -7,6 +7,7 @@ const { User } = require('./models/User');
 const { Board } = require('./models/Board');
 const { Category } = require('./models/Category');
 const { Chat } = require('./models/Chat');
+const { Comment } = require('./models/Comment');
 const {auth} = require('./middleware/auth')
 const http = require("http");
 const socketIO = require("socket.io");
@@ -231,6 +232,29 @@ app.get('/api/board/list', async(req, res) =>{
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+})
+
+app.post('/api/board/comment', (req, res) =>{
+    const comment = new Comment({
+        idx:req.body.idx,
+        name:req.body.name,
+        content:req.body.content,
+    });
+
+    comment.save((err, userInfo) =>{
+        if(err) return res.status(404).json({success:false,err});
+        return res.status(200).json({
+            success:true
+        })
+    });
+})
+app.get('/api/board/comment/:id', async(req, res) =>{
+    try {
+        const accounts = await Comment.find({idx: req.params.id});
+        res.json(accounts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 })
 
 server.listen(port, () => {

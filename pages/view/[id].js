@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Section, ViewTop, Content } from './style';
 import { useRouter } from 'next/router'
 import Moment from 'react-moment';
+import Comment from "./Comment";
 
 const View = () => {
     const [view, setView] = useState();
@@ -24,8 +25,8 @@ const View = () => {
                 </Moment>
             </ViewTop>
             <Content dangerouslySetInnerHTML={{ __html: view?.content}}>
-            
             </Content>
+            <Comment id={id}/>
         </Section>
     );
 };

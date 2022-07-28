@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useCallback, useState, useEffect, useRef} from 'react';
 import dynamic from 'next/dynamic'
 import { BsClipboardPlus } from "react-icons/bs";
 import { Section } from './style';
@@ -13,9 +13,6 @@ const Write = () => {
     const [content, setContent] = useState();
     const [selected, setSelected] = useState("");
 
-    const onChangeContent = (value) => {   
-        setContent(value);
-    }
     const handleSelect = useCallback((e) => {
         setSelected(e.target.value);
         console.log(selected)
@@ -42,7 +39,13 @@ const Write = () => {
     },[showBoard]);
 
     const Edit = dynamic(()=> import('./edit'), { ssr : false } )
-    
+    const EditRef =  React.createRef();
+
+    const onChangeContent = () => {
+        const data = EditRef.current.getInstance().getHTML()
+        console.log(data)
+    }
+
     return (
         <Section>
             <form onSubmit={onSubmitWrite}>
@@ -52,13 +55,13 @@ const Write = () => {
                         <option>게시판 선택</option>
                         {
                             categoryList?.map((item,index) =>
-                                <option value={item.category} key={item}>{item.category}</option>
+                                <option value={item.category} key={index}>{item.category}</option>
                                 )
                         }
                     </select>
                     <button type='button' onClick={onClickBoard}><BsClipboardPlus/></button>
                 </div>
-                <Edit content={content} onChangeContent={onChangeContent}/>
+                <Edit EditRef={EditRef} onChangeContent={onChangeContent}/>
                 <div className='btnWrap'>
                     <button type='submit'>작성</button>
                 </div>
