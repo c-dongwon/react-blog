@@ -10,6 +10,7 @@ import SignUp from '../component/modal/SignUp';
 import { withCookies, useCookies } from 'react-cookie';
 import UserInfo from '../component/modal/UserInfo';
 import Chat from '../component/modal/Chat';
+import wrapper from "../lib/store/configureStore";
 
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
@@ -120,7 +121,7 @@ const App = ({ Component, pageProps }) => {
                                           setShowChat={setShowChat} userData={userData}/>
             }
             
-             <Component {...pageProps} />
+             <Component {...pageProps}/>
         </Section>
           
         </ThemeProvider>
@@ -130,4 +131,4 @@ const App = ({ Component, pageProps }) => {
 }
 
 
-export default App;
+export default wrapper.withRedux(App);

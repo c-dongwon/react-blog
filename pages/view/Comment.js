@@ -2,13 +2,20 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {CommentBox} from "./style";
 import axios from "axios";
 import useInput from "../../hook/useInput";
-import {useRouter} from "next/router";
+import {connect, useDispatch} from "react-redux";
+import {getUser, user} from "../../lib/store/modules/user";
 
-const Comment = ({id}) => {
+const Comment = ({id, props}) => {
     const [comment, onChangeComment, setComment] = useInput("");
     const [commentList, setCommentList] = useState('');
     const [refresh, setRefresh] = useState(false);
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUser())
+    },[])
+    console.log(props)
     const onSubmitComment = useCallback((e) => {
         e.preventDefault();
         axios.post(`/api/board/comment`,{
@@ -28,6 +35,7 @@ const Comment = ({id}) => {
                 setCommentList(res.data)
             })
     },[refresh, id])
+    console.log(user)
     if(!commentList) return false
     return (
         <CommentBox>
@@ -43,8 +51,8 @@ const Comment = ({id}) => {
             </div>
             <ul className="commentList">
                 {
-                    commentList.map(item =>
-                        <li>
+                    commentList.map((item, idx) =>
+                        <li key={idx}>
                             <h3>
                                 <span>{item.name}</span>
                                 <span>{item.createdAt}</span>
@@ -60,5 +68,9 @@ const Comment = ({id}) => {
         </CommentBox>
     );
 };
+const mapStateToProps = (state) => {
+    return { ...state };
+};
 
-export default Comment;
+
+export default connect(mapStateToProps)(Comment);

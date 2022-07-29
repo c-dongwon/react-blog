@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Moment from 'react-moment';
 import Comment from "./Comment";
 
-const View = () => {
+const View = ({}) => {
     const [view, setView] = useState();
     const router = useRouter(); 
     const id = router.query.id
