@@ -49,6 +49,10 @@ module.exports = {
         source: '/api/board/comment/:id',//api request path
         destination: 'http://localhost:4000/api/board/comment/:id',//목적 path
       },
+      {
+        source: '/api/search/:id',//api request path
+        destination: 'http://localhost:4000/api/search/:id',//목적 path
+      },
     ]
   },
 }

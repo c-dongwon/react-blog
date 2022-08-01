@@ -7,12 +7,21 @@ const boardSchema = mongoose.Schema({
     id: {
         type:Number,
     },
+    idx:{
+        type:Number
+    },
     name : {
         type : String
     },
     content : {
         type : String,
         maxlength:5000
+    },
+    file:{
+        type : String
+    },
+    email:{
+        type:String
     },
     createdAt:{
         type : Date,

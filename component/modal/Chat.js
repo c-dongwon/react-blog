@@ -5,13 +5,22 @@ import { BsCameraFill, BsXLg, BsFillArrowUpCircleFill, BsFillPersonFill } from "
 import useInput from '../../hook/useInput';
 import { useCallback } from 'react';
 import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchDataAsync} from "../../lib/store/modules/user";
 
-const Chat = ({setShowChat, stopPropagation, userData}) => {
+const Chat = ({setShowChat, stopPropagation}) => {
+    let state = useSelector((state) => state);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchDataAsync())
+    },[])
+
     const myInfo = {
         roomName: "Test",
-        userName: userData?.name,
+        userName: state.users.name,
+        file:state.users.file
     };
-
     const [currentSocket, setCurrentSocket] = useState();
     const [msgList, setMsgList] = useState([]);
     const [chatMessage, setChatMessage] = useState("");
@@ -22,9 +31,10 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         currentSocket?.emit("onSend", {
-            userName: userData?.name,
+            userName: state.users.name,
             msg: chatMessage,
-            userId:userData?.email,
+            userId:state.users.email,
+            file:state.users.file,
             timeStamp: new Date().toLocaleTimeString()
         });
         setChatMessage("");
@@ -62,7 +72,7 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
             setMsgList((msgList) => [...msgList, messageItem]);
         });
     }, [currentSocket]);
-
+    console.log(msgRecord)
     return (
         <ChatBox onClick={stopPropagation}>
             <form onSubmit={handleSubmit}>
@@ -75,7 +85,7 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
             </div>
             <div className='content' ref={chatRef}>
                 {msgRecord.map((msg, idx) => (
-                    msg.userId === userData.email ?
+                    msg.userId === state.users.email ?
                     <div className="right" key={idx}>
                         <div className="chatBox">
                             <p>{msg.msg}</p>
@@ -84,7 +94,7 @@ const Chat = ({setShowChat, stopPropagation, userData}) => {
                         :
                         <div className="left" key={idx}>
                             <div className="prfileImg">
-                                <BsFillPersonFill/>
+                                <img src={msg.file} alt=""/>
                             </div>
                             <div className="chatBox">
                                 <span>{msg.userName}</span>

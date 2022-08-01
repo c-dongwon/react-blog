@@ -6,21 +6,21 @@ import { useRouter } from 'next/router'
 import Moment from 'react-moment';
 import Comment from "./Comment";
 
-const View = ({}) => {
+const View = () => {
     const [view, setView] = useState();
-    const router = useRouter(); 
+    const router = useRouter();
     const id = router.query.id
 
     useEffect(() => {
         axios.get(`/api/view/${id}`)
-        .then(res => setView(res.data.data))
+            .then(res => setView(res.data.data))
     },[id]);
 
     return (
         <Section>
             <ViewTop>
-                 <h2><span>{view?.category}</span>{view?.title}</h2>
-                 <Moment format="YYYY.MM.DD">
+                <h2><span>{view?.category}</span>{view?.title}</h2>
+                <Moment format="YYYY.MM.DD">
                     {view?.createdAt}
                 </Moment>
             </ViewTop>

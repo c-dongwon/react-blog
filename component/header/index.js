@@ -5,12 +5,16 @@ import { BsChevronDown, BsChevronUp, BsChevronRight, BsSearch, BsFillPencilFill 
 import LoginAfter from './incloud/LoginAfter';
 import LoginBefore from './incloud/LoginBefore';
 import axios from 'axios';
+import useInput from "../../hook/useInput";
+import {useRouter} from "next/router";
 
-const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClickUserInfo, onClickChat}) => {
+const Header = ({darkMod, isDarkMode, onClickLogin, loginData, onClickUserInfo, onClickChat}) => {
     const [activeMenu, setActiveMenu] = useState(0);
     const [categoryList, setCategoryList] = useState();
     const [menuList, setMenuList] = useState([]);
-   
+    const [searchTxt, onChangeSearchTxt, setSearchTxt] = useInput();
+    const router = useRouter()
+
     const list = [];
     const toggleBtn = useCallback((idx) => {
         if(activeMenu !== idx){
@@ -36,18 +40,27 @@ const Header = ({darkMod, isDarkMode, onClickLogin, userData, loginData, onClick
     for(let i = 0; i < categoryList?.length; i++){
         list.push(menuList?.filter(item => item.category === categoryList[i].category))
     }
- 
+
+    const onSearch = useCallback((e) => {
+        e.preventDefault();
+        if(!searchTxt || !searchTxt.trim()){
+            return false;
+        }
+        router.push(`/search/${searchTxt}`)
+    },[searchTxt])
     return (
         <HeaderWrap>        
             <LeftMenu>
-                <h1>무제.</h1>
+                <h1>404 Not Found.</h1>
         
                 <SearchWrap>
-                    <input type="text" placeholder='검색'/>
-                    <button><BsSearch/></button>
+                    <form onSubmit={onSearch}>
+                        <input type="text" placeholder='검색' value={"" || searchTxt} onChange={onChangeSearchTxt}/>
+                        <button type="submit"><BsSearch/></button>
+                    </form>
                 </SearchWrap>
                 {
-                    loginData ? <LoginAfter onClickUserInfo={onClickUserInfo} userData={userData}/> : <LoginBefore onClickLogin={onClickLogin}/>
+                    loginData ? <LoginAfter onClickUserInfo={onClickUserInfo}/> : <LoginBefore onClickLogin={onClickLogin}/>
                 }
                 <MenuList>
                     {

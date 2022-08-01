@@ -13,6 +13,9 @@ const chatSchema = mongoose.Schema({
     },
     userName:{
         type:String
+    },
+    file:{
+        type:String
     }
 })
 

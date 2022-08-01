@@ -5,10 +5,12 @@ export const Section = styled.section`
     height: 100vh;
     color:#555;
     &.dark{
-        color: #fff;
-        background-color: #121212;
-        div{
-            border-color: #555;
+        color: #ececec!important;
+        background-color: #121212!important;
+        *{
+          color: #ececec!important;
+          background-color: #121212!important;
+            border-color: #4d4d4d!important;
         }
     }
 

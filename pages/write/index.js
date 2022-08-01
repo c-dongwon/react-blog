@@ -5,6 +5,10 @@ import { Section } from './style';
 import Board from '../../component/modal/Board';
 import axios from 'axios';
 import useInput from '../../hook/useInput';
+import Edit from "./Edit";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchDataAsync} from "../../lib/store/modules/user";
+import {useRouter} from "next/router";
 
 const Write = () => {
     const [showBoard, setShowBoard] = useState(false);
@@ -12,6 +16,18 @@ const Write = () => {
     const [title, onChangeTitle, setTitle] = useInput();
     const [content, setContent] = useState();
     const [selected, setSelected] = useState("");
+
+    const router = useRouter();
+    let state = useSelector((state) => state);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchDataAsync())
+    }, [])
+
+    const onChangeContent = (value) => {
+        setContent(value)
+    }
 
     const handleSelect = useCallback((e) => {
         setSelected(e.target.value);
@@ -38,14 +54,10 @@ const Write = () => {
         .then(res => setCategoryList(res.data))
     },[showBoard]);
 
-    const Edit = dynamic(()=> import('./edit'), { ssr : false } )
-    const EditRef =  React.createRef();
-
-    const onChangeContent = () => {
-        const data = EditRef.current.getInstance().getHTML()
-        console.log(data)
+    if(state.users.role === 0 ){
+        alert("관리자만 사용 가능합니다.")
+        router.push(`/`)
     }
-
     return (
         <Section>
             <form onSubmit={onSubmitWrite}>
@@ -61,7 +73,7 @@ const Write = () => {
                     </select>
                     <button type='button' onClick={onClickBoard}><BsClipboardPlus/></button>
                 </div>
-                <Edit EditRef={EditRef} onChangeContent={onChangeContent}/>
+                <Edit content={content} onChangeContent={onChangeContent}/>
                 <div className='btnWrap'>
                     <button type='submit'>작성</button>
                 </div>

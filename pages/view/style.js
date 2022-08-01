@@ -86,30 +86,54 @@ export const CommentBox = styled.div`
     padding: 50px 0;
 
     li {
-      border: 1px solid #ddd;
-      border-radius: 5px;
+      display: flex;
+      width: 100%;
       margin-bottom: 20px;
-      &:last-of-type{
-        margin-bottom: 0;
+      .img{
+        width: 50px;
+        height: 50px;
+        background-color: #ddd;
+        border-radius: 50%;
+        margin-right: 10px;
+        overflow: hidden;
+        img{
+          max-width: 100%;
+        }
       }
-      h3 {
-        background-color: #e0e0e0;
-        border-radius: 5px 5px 0 0;
-        padding: 10px;
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
+      .txt {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        width: calc(100% - 60px);
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+        button{
+          border: 0;
+          background-color: transparent;
+          color: red;
+          margin-left: 5px;
+          font-size: 14px;
+        }
+        h3 {
+          background-color: #e0e0e0;
+          border-radius: 5px 5px 0 0;
+          padding: 10px;
+          display: flex;
+          align-items: end;
+          justify-content: space-between;
 
-        span {
-          font-size: 16px;
+          span {
+            font-size: 16px;
 
-          &:first-of-type {
-            font-weight: 500;
-          }
+            &:first-of-type {
+              font-weight: 500;
+            }
 
-          &:last-of-type {
-            font-size: 14px;
-            font-weight: 400;
+            &:last-of-type {
+              font-size: 14px;
+              font-weight: 400;
+            }
           }
         }
       }

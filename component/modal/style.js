@@ -215,7 +215,7 @@ export const ChatBox = styled.div`
   width: 400px;
   height: 400px;
   border: 1px solid #ddd;
-
+  background-color: #fff;
   .top {
     h2 {
       text-align: center;
@@ -256,6 +256,7 @@ export const ChatBox = styled.div`
     box-sizing: border-box;
     padding: 10px;
     overflow: auto;
+   
   &::-webkit-scrollbar {
       width: 10px;
     }

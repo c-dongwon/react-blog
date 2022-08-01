@@ -6,21 +6,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import useInput from '../../hook/useInput';
 import Link from 'next/link'
+import {useDispatch, useSelector} from "react-redux";
+import {fetchDataAsync} from "../../lib/store/modules/user";
 
-const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, setShowUserInfo,userData}) => {
+const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, setShowUserInfo}) => {
     const [name, onChangeName, setName] = useInput("");
     const [email, onChangeEmail, setEmail] = useInput();
     const [password, onChangePassword, setPassword] = useInput();
     const [files, setFiles] = useState();
     const [imageSrc, setImageSrc] = useState('');
+    let state = useSelector((state) => state);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if(userData.name){
-            setName(userData.name);
+        dispatch(fetchDataAsync())
+    },[])
+
+    useEffect(() => {
+        if(state.users.name){
+            setName(state.users.name);
         }
-        if(userData.file){
-            // setFiles(userData.file)
-            setImageSrc(userData.file)
+        if(state.users.file){
+            // setFiles(state.users.file)
+            setImageSrc(state.users.file)
         }
     },[])
    
@@ -78,7 +86,7 @@ const UserInfo = ({showUserInfo, stopPropagation, removeCookie, setLoginData, se
             </ImageView>
             <FloatingLabel
                     className="login-input">
-                    <Form.Control type="text" name="name" id="name" value={name || ""} onChange={onChangeName} placeholder={userData.name}/>
+                    <Form.Control type="text" name="name" id="name" value={name || ""} onChange={onChangeName} placeholder={state.users.name}/>
                     <label htmlFor="name">Name</label>
                 </FloatingLabel>
                 <SignUpBtn type='submit'>변경</SignUpBtn>

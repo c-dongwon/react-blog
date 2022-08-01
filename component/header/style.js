@@ -152,6 +152,19 @@ export const LeftMenu = styled.nav`
     border-right: 1px solid #ddd;
     background-color: #F9F9F9;
     padding: 0 40px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
     h1{
         text-align: left;
         color:#000;
@@ -162,7 +175,6 @@ export const LeftMenu = styled.nav`
 `
 export const MenuList = styled.ul`
     width: 100%;
-    max-height: 490px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 0 5px 0px #0000001A;
