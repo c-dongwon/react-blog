@@ -48,8 +48,9 @@ const Header = ({darkMod, isDarkMode, onClickLogin, loginData, onClickUserInfo, 
         }
         router.push(`/search/${searchTxt}`)
     },[searchTxt])
+
     return (
-        <HeaderWrap>        
+        <HeaderWrap>
             <LeftMenu>
                 <h1>404 Not Found.</h1>
         
@@ -100,7 +101,7 @@ const Header = ({darkMod, isDarkMode, onClickLogin, loginData, onClickUserInfo, 
                     </li>    
                     <FlexLi>
                         <h3>{isDarkMode ? "라이트 모드" : "다크 모드"}</h3>
-                         <SwitchBtn>
+                         <SwitchBtn className="blue">
                             <input type="checkbox" id="switch" onClick={darkMod}/>
                             <label htmlFor="switch">
                                 <span></span>

@@ -16,7 +16,7 @@ const boardSchema = mongoose.Schema({
    },
    content : {
        type : String,
-       maxlength:5000
+       maxlength:50000000
    },
    createdAt:{ // 글을 생성한 날짜 
        type : Date,

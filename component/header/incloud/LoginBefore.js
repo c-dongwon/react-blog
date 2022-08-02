@@ -5,7 +5,7 @@ import {BsChevronRight} from "react-icons/bs";
 import { MyInfo } from '../style';
 const LoginAfter = ({onClickLogin}) => {
     return (
-        <MyInfo onClick={onClickLogin}>
+        <MyInfo onClick={onClickLogin} >
              <div className="imgWrap">                      
                    <img src="/img/img-sample.gif" alt="" />
               </div>

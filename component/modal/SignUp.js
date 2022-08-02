@@ -91,20 +91,20 @@ const SignUp = ({stopPropagation, onClickLogin, setShowSignUp}) => {
             <p className='profileTxt'>프로필이미지 설정</p>
             <FloatingLabel
                     className="login-input">
-                    <Form.Control type="text" id="name2" value={name || ""} onChange={onChangeName} placeholder="Name"/>
+                    <Form.Control type="text" id="name2" value={name || ""} onChange={onChangeName}/>
                     <label htmlFor="name2">이름</label>
                 </FloatingLabel>
                 <FloatingLabel
                     className="login-input">
-                    <Form.Control type="text" value={email} onChange={onChangeEmail || ""} placeholder="ID"/>
+                    <Form.Control type="text" value={email} onChange={onChangeEmail || ""} />
                     <label htmlFor="id2">아이디</label>
                 </FloatingLabel>
                 <FloatingLabel className="login-input">
-                    <Form.Control type="password" placeholder="Password" value={password || ""} onChange={onChangePassword}/>
+                    <Form.Control type="password" value={password || ""} onChange={onChangePassword}/>
                     <label htmlFor="password2">비밀번호</label>
                 </FloatingLabel>
                 <FloatingLabel className="login-input">
-                    <Form.Control type="password" placeholder="Password" value={passwordCheck || ""} onChange={onChangePasswordCheck}/>
+                    <Form.Control type="password" value={passwordCheck || ""} onChange={onChangePasswordCheck}/>
                     <label htmlFor="password3">비밀번호확인</label>
                 </FloatingLabel>
                 {

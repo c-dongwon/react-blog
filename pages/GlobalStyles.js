@@ -21,6 +21,9 @@ const GlobalStyles = createGlobalStyle`
     }
     body{
         font-family: "Pretendard";
+      *{
+        transition: 0.3s;
+      }
       &::-webkit-scrollbar {
         width: 10px;
       }

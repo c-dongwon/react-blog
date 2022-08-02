@@ -12,7 +12,9 @@ export const Section = styled.section`
             border: 0;
             background-color: transparent;
             font-size: 30px;
-            color:#555;
+           svg{
+             color:#6b6b6b
+           }
         }
         input[type="text"]{
         border: 0;
@@ -21,8 +23,10 @@ export const Section = styled.section`
         padding: 10px 5px;
         font-size:16px;
         height: 40px;
+          background-color: ${props => props.theme.colors.wrapColor};
+          color:${props => props.theme.colors.mainTxtColor};
         &::placeholder{
-            color:#555;
+            color:${props => props.theme.colors.subTxtColor};
             font-size:16px;
         }
     }
@@ -34,6 +38,12 @@ export const Section = styled.section`
         color:#555;
         font-size:16px;
         height: 40px;
+      background-color: ${props => props.theme.colors.wrapColor};
+      color:${props => props.theme.colors.mainTxtColor};
+      &::placeholder{
+        color:${props => props.theme.colors.subTxtColor};
+        font-size:16px;
+      }
     }
     }
   .writeTop{

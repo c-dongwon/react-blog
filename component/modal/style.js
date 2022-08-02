@@ -6,7 +6,7 @@ export const SignUpForm = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
-  background-color: #fff;
+  background-color:${props => props.theme.colors.wrapColor};
   border: 1px solid #ddd;
   padding: 20px 15px;
   box-sizing: border-box;
@@ -23,14 +23,16 @@ export const SignUpForm = styled.div`
     input {
       height: 30px;
       font-size: 14px;
-      padding: 0 10px
-
+      padding: 0 10px;
+      background-color:${props => props.theme.colors.wrapColor};
+      color:${props => props.theme.colors.subTxtColor};
     }
 
     label {
       padding: 0 5px;
       line-height: 30px;
       font-size: 13px;
+      color:${props => props.theme.colors.subTxtColor};
     }
   }
 `
@@ -53,7 +55,7 @@ export const CloseBtn = styled.button`
   position: absolute;
   top: 20px;
   right: 15px;
-  color: #222;
+  color: ${props => props.theme.colors.subTxtColor};
   font-size: 15px;
 `
 export const LayerForm = styled.div`
@@ -62,7 +64,7 @@ export const LayerForm = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.wrapColor};
   border: 1px solid #ddd;
   padding: 20px 15px;
   box-sizing: border-box;
@@ -71,7 +73,7 @@ export const LayerForm = styled.div`
 
   h2 {
     font-weight: 600;
-    color: #000;
+    color: ${props => props.theme.colors.mainTxtColor};
     font-size: 24px;
   }
 
@@ -81,21 +83,26 @@ export const LayerForm = styled.div`
     input {
       height: 30px;
       font-size: 14px;
-      padding: 0 10px
-
+      padding: 0 10px;
+      background-color: ${props => props.theme.colors.wrapColor};
+      color: ${props => props.theme.colors.subTxtColor};
+      &::placeholder{
+        color: ${props => props.theme.colors.subTxtColor};      
+      }
     }
 
     label {
       padding: 0 5px;
       line-height: 30px;
       font-size: 13px;
+      color: ${props => props.theme.colors.subTxtColor};
     }
   }
 
   .signUpBtn {
     border: 0;
     background-color: transparent;
-    color: #000;
+    color: ${props => props.theme.colors.mainTxtColor};
     text-align: left;
     margin-top: 10px;
     padding: 0;
@@ -132,8 +139,8 @@ export const LayerForm = styled.div`
 `
 export const LoginBtn = styled.button`
   height: 30px;
-  background-color: #ddd;
-  color: #333;
+  background-color: ${props => props.theme.colors.btnColor};
+  color: ${props => props.theme.colors.subTxtColor};
   border-radius: 5px;
   border: 0;
   font-size: 16px;
@@ -206,6 +213,7 @@ export const ImageView = styled.div`
 
   img {
     max-width: 100%;
+    max-height: 100%;
   }
 `
 export const ChatBox = styled.div`
@@ -215,13 +223,13 @@ export const ChatBox = styled.div`
   width: 400px;
   height: 400px;
   border: 1px solid #ddd;
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.wrapColor};
   .top {
     h2 {
       text-align: center;
-      background-color: #f5f5f5;
+      background-color: ${props => props.theme.colors.commentColor};
       padding: 10px 0;
-
+      color: ${props => props.theme.colors.subTxtColor};
       div {
         width: 30px;
         height: 30px;
@@ -288,6 +296,7 @@ export const ChatBox = styled.div`
         span {
           display: block;
           font-size: 13px;
+          color:${props => props.theme.colors.subTxtColor};
         }
 
         p {
@@ -319,6 +328,7 @@ export const ChatBox = styled.div`
 
         img {
           max-width: 100%;
+          max-height: 100%;
         }
       }
     }
@@ -373,6 +383,9 @@ export const ChatBox = styled.div`
       border: 0;
       bottom: 5px;
       outline-color: transparent;
+      background-color: ${props => props.theme.colors.wrapColor};
+      color: ${props => props.theme.colors.subTxtColor};
+      &:focus { outline: none; }
     }
 
     button {
@@ -384,13 +397,16 @@ export const ChatBox = styled.div`
       border: 0;
       background-color: transparent;
       z-index: 0;
+    
       &.disabled{
         pointer-events: none;
         svg{
           color: #888;
+          transition: 0s;
         }
       }
       svg {
+        transition: 0s;
         width: 30px;
         height: 30px;
         color: #1276E1;

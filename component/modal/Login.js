@@ -50,11 +50,11 @@ const Login = ({setLoginData, stopPropagation, setShowLogin, onClickSignUp}) => 
                 <button type='button' className='signUpBtn' onClick={onClickSignUp}>신규 사용자이신가요? <span>계정만들기</span></button>
                 <FloatingLabel
                     className="login-input">
-                    <Form.Control type="text" placeholder="name@example.com" id="id" value={email || ""} onChange={onChangeEmail} ref={emailRef}/>
+                    <Form.Control type="text" id="id" value={email || ""} onChange={onChangeEmail} ref={emailRef}/>
                     <label htmlFor="id">ID</label>
                 </FloatingLabel>
                 <FloatingLabel className="login-input">
-                    <Form.Control type="password" placeholder="Password" id="password"  value={password || ""} onChange={onChangePassword} ref={pwRef}/>
+                    <Form.Control type="password" id="password"  value={password || ""} onChange={onChangePassword} ref={pwRef}/>
                     <label htmlFor="password">Password</label>
                 </FloatingLabel>
                 {

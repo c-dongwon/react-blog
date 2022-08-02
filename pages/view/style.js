@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Section = styled.section`
   width: calc(100% - 380px);
-  height: 100vh;
+  background: ${props => props.theme.colors.wrapColor};
   color: #555;
   padding: 30px;
   box-sizing: border-box;
@@ -20,11 +20,11 @@ export const ViewTop = styled.div`
   z-index: 9999;
   top: 0;
   background: #fff;
-
+  background: ${props => props.theme.colors.wrapColor};
   h2 {
     font-weight: 500;
     font-size: 30px;
-    color: #222;
+    color: ${props => props.theme.colors.subTxtColor};
 
     span {
       font-size: 20px;
@@ -34,25 +34,26 @@ export const ViewTop = styled.div`
       margin-bottom: 5px;
     }
   }
-
-  span {
+  
+  time {
     font-size: 16px;
     font-weight: 400;
-    color: #222;
+    color: ${props => props.theme.colors.subTxtColor};
   }
 `
 export const Content = styled.div`
   padding: 30px 0;
   width: 100%;
-  min-height: 70%;
+  min-height: 70vh;
   box-sizing: border-box;
-
+  color: ${props => props.theme.colors.subTxtColor};
 `
 export const CommentBox = styled.div`
   & > p {
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
+    color: ${props => props.theme.colors.subTxtColor};
   }
 
   .commentInput {
@@ -66,6 +67,11 @@ export const CommentBox = styled.div`
       padding: 10px;
       border-color: #ddd;
       border-radius: 10px;
+      background-color: ${props => props.theme.colors.wrapColor};
+      color: ${props => props.theme.colors.mainTxtColor};
+      &::placeholder{
+        color: ${props => props.theme.colors.subTxtColor};
+      }
     }
 
     button {
@@ -98,6 +104,7 @@ export const CommentBox = styled.div`
         overflow: hidden;
         img{
           max-width: 100%;
+          max-height: 100%;
         }
       }
       .txt {
@@ -116,13 +123,13 @@ export const CommentBox = styled.div`
           font-size: 14px;
         }
         h3 {
-          background-color: #e0e0e0;
+          background-color: ${props => props.theme.colors.commentColor};
           border-radius: 5px 5px 0 0;
           padding: 10px;
           display: flex;
           align-items: end;
           justify-content: space-between;
-
+          color: ${props => props.theme.colors.mainTxtColor};
           span {
             font-size: 16px;
 
@@ -141,6 +148,7 @@ export const CommentBox = styled.div`
 
     p {
       padding: 20px 10px;
+      color: ${props => props.theme.colors.subTxtColor};
     }
   }
 `
